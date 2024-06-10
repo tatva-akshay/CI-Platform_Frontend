@@ -1,0 +1,20 @@
+.login-form-div {
+  width: 25%;
+}
+.login-form {
+  width: 100%;
+}
+.login-btn{
+    border-color: rgb(201, 113, 26) !important;
+    color: rgb(201, 113, 26);
+  }
+@media only screen and (max-width: 768px) {
+    .login-form-div {
+      width: 100%;
+    }
+  }
+@media only screen and (max-width: 768px) {
+    .login-form {
+      width: 340px !important;
+    }
+  }
