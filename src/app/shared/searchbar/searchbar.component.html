@@ -1,0 +1,41 @@
+<p-menubar>
+    <ng-template pTemplate="start" let-item let-root="root">
+        <p-inputGroup>
+            <label for="search">
+                <p-inputGroupAddon class="border-0 bg-transparent">
+                    <i class="pi pi-search"></i>
+                </p-inputGroupAddon>
+            </label>
+            <input pInputText id="search" placeholder="Search mission..." class="border-0 bg-transparent" />
+        </p-inputGroup> 
+    </ng-template>
+    <ng-template pTemplate="end">
+        <button class="bg-transparent border-0 mx-2" mat-button [matMenuTriggerFor]="menu">Country</button>
+        <mat-menu #menu="matMenu">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+        </mat-menu>
+          
+        <button class="bg-transparent border-0 mx-2" mat-button [matMenuTriggerFor]="menu">City</button>
+        <mat-menu #menu="matMenu">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+        </mat-menu>
+          
+        <button class="bg-transparent border-0 mx-2" mat-button [matMenuTriggerFor]="themesMenu">Theme</button>
+        
+        <mat-menu #themesMenu="matMenu">
+            @for(theme of themes; track theme){
+                <button mat-menu-item>{{theme.name}}</button>
+            }
+        </mat-menu>
+        
+        <button class="bg-transparent border-0 mx-2" mat-button [matMenuTriggerFor]="menu">Skills</button>
+        <mat-menu #menu="matMenu">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+        </mat-menu>
+          
+          
+    </ng-template>
+</p-menubar>

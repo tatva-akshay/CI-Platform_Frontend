@@ -1,0 +1,5 @@
+#search:focus-visible{
+    border: 0px !important;
+    background: red;
+    outline: 0px;
+}

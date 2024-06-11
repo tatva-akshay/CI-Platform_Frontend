@@ -44,8 +44,11 @@ export class LoginComponent {
     
     this._authService.login(login).subscribe((response: ApiResponse) => {
       if(response.isSuccess){
+        var userId = response.result.split('#')[0];
+        var userName = response.result.split('#')[1];
         window.sessionStorage.setItem("token", response.token);
-        window.sessionStorage.setItem("userName", response.result);
+        window.sessionStorage.setItem("userName", userName);
+        window.sessionStorage.setItem("userId", userId);
         this._router.navigate(['/dashboard']);        
       }
       else if(!response.isSuccess){

@@ -1,0 +1,11 @@
+::ng-deep .p-menubar {
+    display: flex;
+    justify-content: space-evenly;
+}
+::ng-deep .p-submenu-list {
+   padding-inline: 1rem;
+}
+
+.avatar:hover > .posistion-absolute {
+    display: flex !important;
+}
