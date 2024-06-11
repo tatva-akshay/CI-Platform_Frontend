@@ -9,7 +9,7 @@ import { ApiResponse } from '../../interface/api-response';
 import { HttpClientModule } from '@angular/common/http';
 import { PasswordValidator } from '../../validators/password.validator';
 import { PhoneNumberValidator } from '../../validators/phone-number.validator';
-import { ConfirmPasswordValidator } from '../../validators/confirm-password.validator'
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -24,9 +24,8 @@ export class RegisterComponent {
     private _router: Router,
   ){}
 
-  products = [{'name': "Dhruvil"}, {'name': 'Shreyash'}]
   responsiveOptions: any[] | undefined;
-  
+  carousels : any[] = [];
   ConfirmPasswordValidator(control: AbstractControl){
     let a = control.get('password')
     return control.get('password')?.value === control.get('confirmPassword')?.value ? null : {PasswordMismatch: true}
@@ -65,22 +64,30 @@ export class RegisterComponent {
   }
 
   ngOnInit() {
+
+    this._authService.carousels().subscribe((response) => {
+      if(response.isSuccess == true){
+        this.carousels = response.result;
+        console.log(this.carousels);
+      }
+    });
+    
     this.responsiveOptions = [
-        {
-            breakpoint: '1199px',
-            numVisible: 1,
-            numScroll: 1
-        },
-        {
-            breakpoint: '991px',
-            numVisible: 1,
-            numScroll: 1
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 1,
-            numScroll: 1
-        }
+        // {
+        //     breakpoint: '1199px',
+        //     numVisible: 1,
+        //     numScroll: 0
+        // },
+        // {
+        //     breakpoint: '991px',
+        //     numVisible: 1,
+        //     numScroll: 0
+        // },
+        // {
+        //     breakpoint: '767px',
+        //     numVisible: 1,
+        //     numScroll: 0
+        // }
     ];
   }
 }

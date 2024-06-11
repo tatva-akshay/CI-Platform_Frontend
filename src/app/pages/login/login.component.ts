@@ -10,6 +10,8 @@ import { AuthService } from '../../services/auth.service';
 import { ApiResponse } from '../../interface/api-response';
 import { HttpClientModule } from '@angular/common/http';
 import { PasswordValidator } from '../../validators/password.validator';
+import { Carousel } from '../../interface/carousels';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -18,54 +20,49 @@ import { PasswordValidator } from '../../validators/password.validator';
   styleUrl: './login.component.css',
   providers: [AuthService]
 })
+
 export class LoginComponent {
   constructor(
     private _authService: AuthService,
     private _router: Router,
   ){}
 
+  carousels :  any[] = [];
   products = [{'name': "Dhruvil"}, {'name': 'Shreyash'}]
   responsiveOptions: any[] | undefined;
-
+  loginErrorMessage?: string;
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(128)]),
     password: new FormControl('', [Validators.required, PasswordValidator, Validators.minLength(8), Validators.maxLength(255)])
   });
 
-  onSubmit(){
-  
+  onSubmit(){  
     var login: LoginForm = {
       email : this.loginForm.value.email,
       password : this.loginForm.value.password
     }
-
+    
     this._authService.login(login).subscribe((response: ApiResponse) => {
       if(response.isSuccess){
         window.sessionStorage.setItem("token", response.token);
         window.sessionStorage.setItem("userName", response.result);
         this._router.navigate(['/dashboard']);        
       }
+      else if(!response.isSuccess){
+        this.loginErrorMessage = "Email or Password is Invalid."
+      }
+      else{
+        this.loginErrorMessage = "Something went wrong."
+      }
     });
   }
 
   ngOnInit() { 
-
-   this.responsiveOptions = [
-        {
-            breakpoint: '1199px',
-            numVisible: 1,
-            numScroll: 1
-        },
-        {
-            breakpoint: '991px',
-            numVisible: 1,
-            numScroll: 1
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 1,
-            numScroll: 1
-        }
-    ];
-}
+    this._authService.carousels().subscribe((response) => {
+      if(response.isSuccess == true){
+        this.carousels = response.result;
+        console.log(this.carousels);
+      }
+    });
+  }
 }
