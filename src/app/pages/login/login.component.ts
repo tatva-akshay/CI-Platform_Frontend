@@ -11,6 +11,7 @@ import { ApiResponse } from '../../interface/api-response';
 import { HttpClientModule } from '@angular/common/http';
 import { PasswordValidator } from '../../validators/password.validator';
 import { Carousel } from '../../interface/carousels';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginComponent {
   constructor(
     private _authService: AuthService,
     private _router: Router,
+    private messageService : MessageService
   ){}
 
   carousels :  any[] = [];
@@ -49,13 +51,13 @@ export class LoginComponent {
         window.sessionStorage.setItem("token", response.token);
         window.sessionStorage.setItem("userName", userName);
         window.sessionStorage.setItem("userId", userId);
+        this.messageService.add({ severity: 'success', detail: 'User Logged in successfully', life: 3000 });
         this._router.navigate(['/dashboard']);        
       }
-      else if(!response.isSuccess){
-        this.loginErrorMessage = "Email or Password is Invalid."
-      }
-      else{
-        this.loginErrorMessage = "Something went wrong."
+    }, 
+    (error) => {
+      if(error.error.statusCode == 404){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.errorMessages[0], life: 3000 });
       }
     });
   }

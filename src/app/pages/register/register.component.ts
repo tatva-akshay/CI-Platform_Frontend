@@ -9,6 +9,7 @@ import { ApiResponse } from '../../interface/api-response';
 import { HttpClientModule } from '@angular/common/http';
 import { PasswordValidator } from '../../validators/password.validator';
 import { PhoneNumberValidator } from '../../validators/phone-number.validator';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +23,7 @@ export class RegisterComponent {
   constructor(
     private _authService: AuthService,
     private _router: Router,
+    private messageService: MessageService
   ){}
 
   responsiveOptions: any[] | undefined;
@@ -59,7 +61,14 @@ export class RegisterComponent {
       if(response.isSuccess){
         this._router.navigate(['/login']);        
       }
-      console.log(response);
+    }, 
+    (error) => {
+      if(error.error.statusCode == 400){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.errorMessages[0], life: 3000 });
+      }
+      else{
+        console.log(error)
+      }
     });
   }
 
@@ -73,21 +82,6 @@ export class RegisterComponent {
     });
     
     this.responsiveOptions = [
-        // {
-        //     breakpoint: '1199px',
-        //     numVisible: 1,
-        //     numScroll: 0
-        // },
-        // {
-        //     breakpoint: '991px',
-        //     numVisible: 1,
-        //     numScroll: 0
-        // },
-        // {
-        //     breakpoint: '767px',
-        //     numVisible: 1,
-        //     numScroll: 0
-        // }
     ];
   }
 }

@@ -1,5 +1,9 @@
-#search:focus-visible{
-    border: 0px !important;
-    background: red;
-    outline: 0px;
+@layer reset, primeng;
+
+/* Reset CSS */
+@layer reset {
+    button,
+    input {
+        /* CSS to Reset */
+    }
 }

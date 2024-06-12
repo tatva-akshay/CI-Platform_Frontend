@@ -1,5 +1,7 @@
-<p-menubar>
-    <ng-template pTemplate="start" let-item let-root="root">
+<div class="w-100 d-flex justify-content-center bg-light menubar-border">
+
+    <p-menubar>
+        <ng-template pTemplate="start" let-item let-root="root">
         <p-inputGroup>
             <label for="search">
                 <p-inputGroupAddon class="border-0 bg-transparent">
@@ -7,35 +9,97 @@
                 </p-inputGroupAddon>
             </label>
             <input pInputText id="search" placeholder="Search mission..." class="border-0 bg-transparent" />
-        </p-inputGroup> 
+        </p-inputGroup>
     </ng-template>
     <ng-template pTemplate="end">
-        <button class="bg-transparent border-0 mx-2" mat-button [matMenuTriggerFor]="menu">Country</button>
-        <mat-menu #menu="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-        </mat-menu>
-          
-        <button class="bg-transparent border-0 mx-2" mat-button [matMenuTriggerFor]="menu">City</button>
-        <mat-menu #menu="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-        </mat-menu>
-          
-        <button class="bg-transparent border-0 mx-2" mat-button [matMenuTriggerFor]="themesMenu">Theme</button>
+        <div class="d-flex">
+            <mat-form-field>
+                <mat-label class="border-0 bg-transparent">Country</mat-label>
+                <mat-select [formControl]="toppings" multiple placeholder="Themes">
+                    <mat-select-trigger>
+                        {{toppings.value?.[0] || ''}}
+                        @if ((toppings.value?.length || 0) > 1) {
+                            <span class="example-additional-selection">
+                                (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' :
+                            'others'}})
+                        </span>
+                    }
+                </mat-select-trigger>
+                @for (topping of themes; track topping) {
+                    <mat-option [value]="topping.name">{{topping.name}}</mat-option>
+                    <mat-option [value]="topping.name">{{topping.name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label class="border-0 bg-transparent">City</mat-label>
+            <mat-select [formControl]="toppings" multiple placeholder="Themes">
+                <mat-select-trigger>
+                    {{toppings.value?.[0] || ''}}
+                    @if ((toppings.value?.length || 0) > 1) {
+                        <span class="example-additional-selection">
+                            (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' :
+                            'others'}})
+                        </span>
+                    }
+                    </mat-select-trigger>
+                    @for (topping of themes; track topping) {
+                        <mat-option [value]="topping.name">{{topping.name}}</mat-option>
+                    <mat-option [value]="topping.name">{{topping.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label class="border-0 bg-transparent">Themes</mat-label>
+                <mat-select [formControl]="toppings" multiple placeholder="Themes">
+                    <mat-select-trigger>
+                        {{toppings.value?.[0] || ''}}
+                        @if ((toppings.value?.length || 0) > 1) {
+                            <span class="example-additional-selection">
+                                (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' :
+                            'others'}})
+                        </span>
+                    }
+                </mat-select-trigger>
+                @for (topping of themes; track topping) {
+                    <mat-option [value]="topping.name">{{topping.name}}</mat-option>
+                    <mat-option [value]="topping.name">{{topping.name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
         
-        <mat-menu #themesMenu="matMenu">
-            @for(theme of themes; track theme){
-                <button mat-menu-item>{{theme.name}}</button>
-            }
-        </mat-menu>
+        <mat-form-field class="no-border">
+            <mat-label>Skills</mat-label>
+            <mat-select [formControl]="toppings" multiple placeholder="Themes">
+                <mat-select-trigger>
+                    {{toppings.value?.[0] || ''}}
+                    @if ((toppings.value?.length || 0) > 1) {
+                        <span class="example-additional-selection">
+                            (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' :
+                            'others'}})
+                        </span>
+                    }
+                </mat-select-trigger>
+                @for (topping of themes; track topping) {
+                    <mat-option [value]="topping.name">{{topping.name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
         
-        <button class="bg-transparent border-0 mx-2" mat-button [matMenuTriggerFor]="menu">Skills</button>
-        <mat-menu #menu="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-        </mat-menu>
-          
-          
-    </ng-template>
+    </div>
+</ng-template>    
 </p-menubar>
+</div>
+<div class="w-100 d-flex justify-content-center bg-light menubar-border">
+
+    <p-menubar>
+        <ng-template pTemplate="start" let-item let-root="root">
+            <small>
+                {{toppings.value}}
+            </small>
+        </ng-template>
+        <ng-template pTemplate="end">Clear all
+        </ng-template>    
+    </p-menubar>
+    
+</div>

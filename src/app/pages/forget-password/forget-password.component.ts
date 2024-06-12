@@ -5,19 +5,27 @@ import { AuthService } from '../../services/auth.service';
 import { CarouselModule } from 'primeng/carousel';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { ForgetPassword } from '../../interface/forget-password';
-
+import { ToastModule } from 'primeng/toast'
+import { ConfirmDialogModule } from 'primeng/confirmdialog'
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { catchError } from 'rxjs';
+import { ApiResponse } from '../../interface/api-response';
 @Component({
   selector: 'app-forget-password',
   standalone: true,
-  imports: [FormsModule, InputTextModule, ReactiveFormsModule, CarouselModule, HttpClientModule, RouterLink, RouterLinkActive, RouterModule, RouterOutlet],
+  imports: [ToastModule, ConfirmDialogModule, FormsModule, InputTextModule, ReactiveFormsModule, CarouselModule, HttpClientModule, RouterLink, RouterLinkActive, RouterModule, RouterOutlet],
   templateUrl: './forget-password.component.html',
   styleUrl: './forget-password.component.css',
-  providers: [AuthService]
+  providers: [AuthService, ConfirmationService]
 })
 export class ForgetPasswordComponent {
-  constructor(private _authService: AuthService) {}
+  constructor(
+    private _authService: AuthService, 
+    private confirmationService : ConfirmationService, 
+    private messageService : MessageService,
+    private _router : Router  ) {}
   forgetPasswordForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(128)]),
   });
@@ -28,12 +36,22 @@ export class ForgetPasswordComponent {
     var forgetPassword: ForgetPassword = {
       email : this.forgetPasswordForm.value.email
     }
-    console.log(forgetPassword)
-    this._authService.forgetPassword(forgetPassword).subscribe((response) => {
+    this._authService.forgetPassword(forgetPassword)
+    .subscribe((response) => {
       if(response.isSuccess == true){
-        console.log(response);
+        this.messageService.add({ severity: 'success', summary: 'Sent', detail: 'Password reset link sent successfully', life: 3000 });
+        this._router.navigate(['/login']);
+      }
+    }, (error) => {
+      if(error.error.statusCode == 404){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Email ID not found', life: 3000 });
+      }
+      else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong', life: 3000 });
       }
     });
+    // .pipe( res => 
+    //   catchError(this._authService.handleError<ApiResponse>('countries')));      
   }
   ngOnInit() { 
 
@@ -61,4 +79,13 @@ export class ForgetPasswordComponent {
       }
   ];
   }
+
+  confirm() {
+    this.confirmationService.confirm({
+        header: 'Please confirm to reset the Password.',
+        accept: () => {
+            this.onSubmit();
+        }
+    });
+}
 }

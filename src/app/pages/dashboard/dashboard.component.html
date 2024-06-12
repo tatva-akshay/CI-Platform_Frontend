@@ -1,2 +1,31 @@
 <app-header></app-header>
 <app-searchbar></app-searchbar>
+<div class="w-100 d-flex flex-column align-items-center py-3">
+    <div class="w-75 d-flex justify-content-between">
+        <h2>Explore {{missions?.length}} missions</h2>
+        <div>
+            <mat-form-field appearance="outline" class="mx-2">
+                <mat-label>Sort by</mat-label>
+                <mat-select name="food">
+                    @for (food of foods; track food) {
+                    <mat-option [value]="food">{{food}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <i class="pi pi-th-large mx-2"></i>
+            <i class="pi pi-bars mx-2"></i>
+        </div>
+    </div>
+    <div class="w-75">
+        <mat-grid-list cols="3" [gutterSize]="'1px'" [rowHeight]="'70vh'">
+            @for(mission of missions; track mission){
+            <mat-grid-tile>
+                <app-mission-card class="shadow" [mission]="mission"></app-mission-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <app-mission-card class="shadow" [mission]="mission"></app-mission-card>
+            </mat-grid-tile>
+            }
+        </mat-grid-list>
+    </div>
+</div>

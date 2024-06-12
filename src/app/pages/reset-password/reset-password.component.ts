@@ -7,19 +7,25 @@ import { CarouselModule } from 'primeng/carousel'
 import { InputTextModule } from 'primeng/inputtext'
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ResetPassword } from '../../interface/reset-password';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog'
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button'
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterModule, RouterOutlet, CarouselModule, InputTextModule, HttpClientModule],
+  imports: [ButtonModule, ConfirmDialogModule, FormsModule, ReactiveFormsModule, RouterModule, RouterOutlet, CarouselModule, InputTextModule, HttpClientModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
-  providers: [AuthService]
+  providers: [AuthService, ConfirmationService]
 })
 export class ResetPasswordComponent {
   constructor(
     private _route: ActivatedRoute,
-    private _authService: AuthService) {}
+    private _authService: AuthService,
+   private confirmationService : ConfirmationService,
+   private messageService:MessageService
+  
+  ) {}
 
   responsiveOptions: any[] | undefined;
   carousels : any[] = [];
@@ -44,7 +50,15 @@ export class ResetPasswordComponent {
     }
     this._authService.resetPassword(resetPassword).subscribe((response) => {
       console.log(response)
-    });
+      if(response.isSuccess){
+        this.messageService.add({ severity: 'success', summary: 'Password Changed Successfully', life: 3000 })
+      }
+    },
+  (error) => {
+    if(error.error.statusCode == 401){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Token expired, click on Forget password to get new token', life: 3000 });
+    }
+  });
   }
 
   ngOnInit(){
@@ -58,5 +72,12 @@ export class ResetPasswordComponent {
 
     window.sessionStorage.setItem('resetPasswordToken', this._route.snapshot.queryParams['token']);
   }
-  
+  confirm() {
+    this.confirmationService.confirm({
+        header: 'Are you sure to change the password?',
+        accept: () => {
+            this.onSubmit();
+        }
+    });
+}
 }

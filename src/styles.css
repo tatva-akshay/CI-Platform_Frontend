@@ -8,3 +8,43 @@
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-text-field-wrapper, .mdc-text-field, .mdc-text-field--filled {
+    background-color: transparent !important;
+    border: 0 !important;
+    outline: 0 !important;
+}
+.mdc-line-ripple, .mdc-line-ripple--deactivating {
+    opacity: 0;
+  }
+  .mat-mdc-form-field-subscript-wrapper ,.mat-mdc-form-field-bottom-align{
+    display: none;
+  }
+  .p-menubar {
+    width: 75vw;
+    justify-content: space-between !important;
+    background-color: transparent;
+    border: 0;
+  }
+
+  .mat-mdc-form-field {
+    width: 10vw !important;
+}
+.menubar-border{
+    border-bottom: 0.5px solid rgb(192, 192, 192, 0.2);
+    background-color: rgb(251, 251, 251) !important;
+}
+.header-1  .p-menubar {
+    justify-content: space-evenly !important;
+}
+.p-rating-icon-active{
+    color: goldenrod;
+}
+.p-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.p-card-body {
+    height: 100%;
+}

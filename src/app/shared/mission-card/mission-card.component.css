@@ -1,0 +1,13 @@
+.border-time-period {
+    border-color: lightgray;
+}
+.apply-btn{
+    border-color: rgb(201, 113, 26) !important;
+    color: rgb(201, 113, 26);
+  }
+  .location {
+    background: rgba(0, 0, 0, 0.4);
+  }
+  /* .progress-bar{
+    background-attachment: red;
+  } */

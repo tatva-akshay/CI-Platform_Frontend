@@ -1,0 +1,102 @@
+<p-card header="{{mission?.title}}" [style]="{ width: '22vw', height: '57vh'}">
+        <ng-template pTemplate="header" class="">
+            <div class="position-relative w-100">
+                <p class="position-absolute end-0 m-2 px-2 py-2 rounded-pill text-light location"><i
+                    class="pi pi-map-marker mx-1"></i>{{mission?.city}}</p>
+                    <img alt="Card" src="data:image/png;base64,{{mission?.thumbnail}}" width="100%" height="300px"/>
+                    <div class="position-absolute end-0 bottom-0 m-2 py-2">
+                        
+                        <div class="my-2 px-2 fs-2 py-2 rounded-pill text-light location">
+                            @if(mission?.missionUserDTO?.isFavourite){
+                                <i class="pi pi-heart-fill mx-1"></i>
+                            }
+                            @else {
+                    <i class="pi pi-heart mx-1"></i>
+                }
+            </div>
+            <div class="my-2 px-2 py-2 rounded-pill text-light location">
+                <i class="pi pi-users mx-1"></i>
+            </div>
+        </div>
+        <div class="position-absolute w-100 text-center" style="bottom: -18px; height: 30px;">
+            <b class="bg-white px-2 py-1 rounded-pill">{{mission?.theme}}</b>
+            </div>
+        </div>
+    </ng-template>
+    <div class="h-100">
+
+        <p>
+            {{mission?.shortDescription}}
+        </p>
+        <div class="d-flex w-100 justify-content-between">
+            <b>{{mission?.organisationName}}</b>
+            <small>
+                <p-rating [ngModel]="mission?.ratings" style="color: goldenrod;" [cancel]="false" [readonly]="true" />
+            </small>
+        </div>
+        @if(!mission?.missionUserDTO?.isApplied){
+            
+        
+            <div class="d-flex border my-4 w-100 position-relative justify-content-center">
+                <small
+                class="rounded-pill d-flex align-items-center bg-white position-absolute text-nowrap border border-time-period px-2"
+                style="top: -15px; height: 30px;">
+                @if(mission?.goal != null && mission?.goal != ""){
+            {{mission?.goal}}
+        }
+        @else {
+            <b>From {{mission?.startDate}} until {{mission?.endDate}}</b>
+        }
+    </small>
+</div>
+
+<div class="d-flex justify-content-between">
+    
+    @if((mission?.goal != null && mission?.goal != "")){
+        <div class="d-flex">
+            <i class="pi pi-user fs-2"></i>
+            <b class="ms-2">
+                250 <br>
+                <small>Already volunteered</small>
+            </b>
+        </div>
+        <div class="d-flex">
+            <i class="pi pi-bullseye fs-2"></i>
+            <b class="ms-2 h-100 align-middle pt-2">
+                <p-progressBar [value]="50" [color]="'rgb(201, 113, 26)'" [showValue]="false"
+                [style]="{'height':'10px'}" />
+                <small class="text-nowrap">8000 achieved</small>
+            </b>
+        </div>
+    }
+    @else{
+        <div class="d-flex">
+            <i class="pi pi-clock fs-2"></i>
+            <b class="ms-2">
+                {{mission?.registrationDeadline}} <br>
+                <small>Deadline</small>
+            </b>
+        </div>
+        <div class="d-flex">
+            <i class="pi pi-user-minus fs-2"></i>
+            <b class="ms-2">
+                {{mission?.seatsLeft}} <br>
+                <small>Seats left</small>
+            </b>
+        </div>
+    }
+</div>
+<hr />
+<div class="text-center">
+    <button class="apply-btn btn rounded-pill border w-auto ">Apply <i class="pi pi-arrow-right ms-3"></i></button>
+</div>
+}
+@else {
+    <hr />
+    <div class="text-center">
+        <button class="apply-btn btn rounded-pill border w-auto ">View Details <i
+            class="pi pi-arrow-right ms-3"></i></button>
+        </div>
+    }
+</div>
+</p-card>
