@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
-import { PasswordValidator } from '../../validators/password.validator';
-import { AuthService } from '../../services/auth.service';
+import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
 import { CarouselModule } from 'primeng/carousel'
 import { InputTextModule } from 'primeng/inputtext'
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ResetPassword } from '../../interface/reset-password';
 import { ConfirmDialogModule } from 'primeng/confirmdialog'
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button'
+
+import { PasswordValidator } from '../../validators/password.validator';
+import { AuthService } from '../../services/auth.service';
+import { ResetPassword } from '../../interface/reset-password';
+
 @Component({
   selector: 'app-reset-password',
   standalone: true,
@@ -18,53 +21,63 @@ import { ButtonModule } from 'primeng/button'
   styleUrl: './reset-password.component.css',
   providers: [AuthService, ConfirmationService]
 })
+
 export class ResetPasswordComponent {
   constructor(
     private _route: ActivatedRoute,
+    private _router: Router,
     private _authService: AuthService,
-   private confirmationService : ConfirmationService,
-   private messageService:MessageService
-  
-  ) {}
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+
+  ) { }
 
   responsiveOptions: any[] | undefined;
-  carousels : any[] = [];
-  ConfirmPasswordValidator(control: AbstractControl){
+  carousels: any[] = [];
+  ConfirmPasswordValidator(control: AbstractControl) {
     let a = control.get('password')
-    return control.get('password')?.value === control.get('confirmPassword')?.value ? null : {PasswordMismatch: true}
+    return control.get('password')?.value === control.get('confirmPassword')?.value ? null : { PasswordMismatch: true }
   }
-  resetPasswordForm : FormGroup = new FormGroup({
+  resetPasswordForm: FormGroup = new FormGroup({
     password: new FormControl('', [Validators.required, PasswordValidator, Validators.minLength(8), Validators.maxLength(255)]),
     confirmPassword: new FormControl('', [Validators.required, PasswordValidator, Validators.minLength(8), Validators.maxLength(255)])
   },
-  {
-    validators: this.ConfirmPasswordValidator
-  });
+    {
+      validators: this.ConfirmPasswordValidator
+    });
 
 
-  onSubmit(){
-    var resetPassword : ResetPassword = {
-      token : '',
-      password : this.resetPasswordForm.value.password,
-      confirmPassword : this.resetPasswordForm.value.confirmPassword
+  onSubmit() {
+    var resetPassword: ResetPassword = {
+      token: '',
+      password: this.resetPasswordForm.value.password,
+      confirmPassword: this.resetPasswordForm.value.confirmPassword
     }
     this._authService.resetPassword(resetPassword).subscribe((response) => {
       console.log(response)
-      if(response.isSuccess){
-        this.messageService.add({ severity: 'success', summary: 'Password Changed Successfully', life: 3000 })
+      if (response.isSuccess) {
+        this.messageService.add({ severity: 'success', summary: 'Password Changed Successfully', life: 3000 });
+
       }
     },
-  (error) => {
-    if(error.error.statusCode == 401){
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Token expired, click on Forget password to get new token', life: 3000 });
-    }
-  });
+      (error) => {
+        if (error.error.statusCode == 401) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Token expired, click on Forget password to get new token', life: 3000 });
+          this._router.navigate(['forget-password']);
+        }
+        else if (error.error.statusCode == 404) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid email ID in token', life: 3000 });
+        }
+        else {
+          console.log(error);
+        }
+      });
   }
 
-  ngOnInit(){
+  ngOnInit() {
 
     this._authService.carousels().subscribe((response) => {
-      if(response.isSuccess == true){
+      if (response.isSuccess == true) {
         this.carousels = response.result;
         console.log(this.carousels);
       }
@@ -74,10 +87,10 @@ export class ResetPasswordComponent {
   }
   confirm() {
     this.confirmationService.confirm({
-        header: 'Are you sure to change the password?',
-        accept: () => {
-            this.onSubmit();
-        }
+      header: 'Are you sure to change the password?',
+      accept: () => {
+        this.onSubmit();
+      }
     });
-}
+  }
 }

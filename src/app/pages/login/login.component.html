@@ -25,15 +25,39 @@
             <div class="mb-3 d-flex flex-column w-100">
                 <label for="email">Email Address</label>
                 <input pInputText id="email" aria-describedby="email-validation" formControlName="email" />
-                <small id="email-validation" class="visually-hidden">
+                <small class="text-danger" id="email-validation"
+                    *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+                    @if(loginForm.controls['email'].getError('required') != null){
+                    <span>Required</span>
+                    }
+                    @else if (loginForm.controls['email'].getError('email')!= null) {
+                    <span>Please enter valid email address</span>
+                    }
+                    @else if (loginForm.controls['email'].getError('maxlength')!= null) {
+                    <span>Maximum 128 characters are allowed</span>
+                    }
                 </small>
             </div>
 
             <div class="mb-3 d-flex flex-column w-100">
                 <label for="password">Password</label>
                 <input pInputText id="password" type="password" aria-describedby="password-validation"
-                    formControlName="password" />
-                <small id="password-validation" class="visually-hidden">
+                    formControlName="password"
+                     />
+                <small class="text-danger" id="password-validation"
+                    *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+                    @if(loginForm.controls['password'].getError('required') != null){
+                    <span>Required</span>
+                    }
+                    @else if (loginForm.controls['password'].getError('passwordInvalid')!= null) {
+                    <span>Please enter valid password</span>
+                    }
+                    @else if (loginForm.controls['password'].getError('minlength')!= null) {
+                    <span>Minimum 8 characters are required</span>
+                    }
+                    @else if (loginForm.controls['password'].getError('maxlength')!= null) {
+                    <span>Maximum 255 characters are allowed</span>
+                    }
                 </small>
             </div>
 
@@ -41,11 +65,12 @@
                 {{loginErrorMessage}}
             </div>
 
-            <button class="login-btn btn rounded-pill border w-100 mb-2" type="submit"
-                [disabled]="loginForm.invalid">Login</button>
-                <p class=" w-100 mb-2 text-center">
-                    <small> <a class="text-decoration-none" routerLink="/forget-password">Lost your password?</a></small>
-                </p>
+            <button pButton [disabled]="loginForm.invalid" class="p-button-rounded rounded-pill w-100 text-nowrap"
+                [severity]="'warning'" [outlined]="true" [type]="'submit'" label="Login"></button>
+
+            <p class=" w-100 mb-2 text-center">
+                <small> <a class="text-decoration-none" routerLink="/forget-password">Lost your password?</a></small>
+            </p>
             <p class="w-100 mb-2 text-center">
                 <small>Don't have an account? <a class="text-decoration-none" routerLink="/register"> Create an account?
                     </a></small>

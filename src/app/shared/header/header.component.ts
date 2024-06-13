@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
 import { MenuItem } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { MenubarModule } from 'primeng/menubar';
 import { DropdownModule } from 'primeng/dropdown';
-import { MatMenuModule } from '@angular/material/menu'
+import { ButtonModule } from 'primeng/button';
+
 import { UserService } from '../../services/user.service';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [AvatarModule, MenubarModule, DropdownModule, MatMenuModule, HttpClientModule],
+  imports: [AvatarModule, ButtonModule, MenubarModule, DropdownModule, HttpClientModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   providers: [UserService]

@@ -1,0 +1,118 @@
+<p-card [styleClass]="'d-flex p-0 mission-list'">
+    <div class="d-md-flex p-0 m-0">
+        <div class="position-relative">
+            <img alt="Card" class="card-image" src="data:image/png;base64,{{mission?.thumbnail}}" />
+            <p class="position-absolute end-0 top-0 m-2 px-2 py-2 rounded-pill text-light location"><i
+                    class="pi pi-map-marker mx-1"></i>{{mission?.city}}</p>
+            @if(mission?.missionUserDTO?.isApplied){
+            <p class="position-absolute start-0 top-0 m-2 ms-0 px-2 py-2 rounded-pill text-light bg-success applied">
+                Applied
+                }
+            <div class="position-absolute end-0 bottom-0 m-2 py-2">
+
+                <div class="my-2 px-2 fs-2 py-2 rounded-pill text-light location">
+                    @if(mission?.missionUserDTO?.isFavourite){
+                    <i class="pi pi-heart-fill mx-1"></i>
+                    }
+                    @else {
+                    <i class="pi pi-heart mx-1"></i>
+                    }
+                </div>
+                <div class="my-2 px-2 py-2 rounded-pill text-light location">
+                    <i class="pi pi-users mx-1"></i>
+                </div>
+            </div>
+            <div class="position-absolute w-100 text-center" style="bottom: -18px; height: 30px;">
+                <b class="bg-white px-2 py-1 rounded-pill">{{mission?.theme}}</b>
+            </div>
+        </div>
+        <div class="p-2 w-100 d-flex flex-column justify-content-between">
+            <div class="d-lg-flex w-100 justify-content-between">
+                <div class="row">
+
+                    <p class="m-1 text-nowrap rounded-pill col">
+                        <i class="pi pi-map-marker mx-1"></i>
+                        {{mission?.city}}
+                    </p>
+                    <p class="m-1 text-nowrap rounded-pill col">
+                        <i class="pi pi-map-marker mx-1"></i>
+                        {{mission?.theme}}
+                    </p>
+                    <p class="m-1 text-nowrap rounded-pill col">
+                        <i class="pi pi-map-marker mx-1"></i>
+                        {{mission?.organisationName}}
+                    </p>
+                </div>
+                <small class="m-1">
+                    <p-rating [ngModel]="mission?.ratings" style="color: goldenrod;" [cancel]="false"
+                        [readonly]="true" />
+                </small>
+            </div>
+            <p class="p-card-title m-1">{{mission?.title}}</p>
+            <p class="m-1" style="height: 2.6rem; overflow: hidden;">{{mission?.shortDescription}}</p>
+            <div class="d-md-flex w-100 justify-content-between align-items-center gap-2">
+
+                <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4 justify-content-between">
+
+                    <div class="col">
+                        <i class="pi pi-user-minus fs-4"></i>
+                        <b class="ms-2 fs-small">
+                            {{mission?.seatsLeft}} <br>
+                            <small>Seats left</small>
+                        </b>
+                    </div>
+                    <div class="col">
+                        <i class="pi pi-bullseye fs-4"></i>
+                        <b class="ms-2 h-100 align-middle pt-2">
+                            <p-progressBar [value]="50" [color]="'rgb(201, 113, 26)'" [showValue]="false"
+                                [style]="{'height':'10px'}" />
+                            <small class="text-nowrap">8000 achieved</small>
+                        </b>
+                    </div>
+                    <div class="col">
+                        <i class="pi pi-clock fs-4"></i>
+                        <b class="ms-2 fs-small">
+                            {{mission?.registrationDeadline}} <br>
+                            <small>Deadline</small>
+                        </b>
+                    </div>
+                    <div class="col">
+                        <i class="pi pi-user fs-4"></i>
+                        <b class="ms-2 fs-small">
+                            250 <br>
+                            <small>Already volunteered</small>
+                        </b>
+                    </div>
+
+                    <!-- <div class="col">
+                    <i class="pi pi-calendar fs-4"></i>
+                    <b class="ms-2 fs-small">
+                        <small class="text-nowrap">From {{mission?.startDate}}</small> <br/><small class="text-nowrap">until {{mission?.endDate}}</small>
+                    </b>
+                </div>
+                <div class="col">
+                    <i class="pi pi-user fs-4"></i>
+                    <b class="ms-2 fs-small">
+                        Skills <br>
+                        <small>{{mission?.skills}}</small>
+                    </b>
+                </div> -->
+
+                </div>
+                @if(!mission?.missionUserDTO?.isApplied) {
+                <div class="text-center text-md-end m-2 m-md-0  col">
+                    <button class="apply-btn text-nowrap btn rounded-pill border w-auto ">Apply <i
+                            class="pi pi-arrow-right ms-3"></i></button>
+                </div>
+
+                }
+                @else {
+                <div class="text-center text-md-end m-2 m-md-0  col">
+                    <button class="apply-btn text-nowrap btn rounded-pill border w-auto ">View Details <i
+                            class="pi pi-arrow-right ms-3"></i></button>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</p-card>

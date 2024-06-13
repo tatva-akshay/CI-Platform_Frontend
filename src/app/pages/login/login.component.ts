@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { MatButtonModule } from '@angular/material/button';
-import { Router, RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
+
 import { LoginForm } from '../../interface/login-form';
 import { AuthService } from '../../services/auth.service';
 import { ApiResponse } from '../../interface/api-response';
-import { HttpClientModule } from '@angular/common/http';
 import { PasswordValidator } from '../../validators/password.validator';
-import { Carousel } from '../../interface/carousels';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CarouselModule, InputTextModule, FormsModule, ButtonModule, MatButtonModule, RouterOutlet, RouterModule, RouterLink, RouterLinkActive, ReactiveFormsModule, HttpClientModule],
+  imports: [CarouselModule, InputTextModule, FormsModule, ButtonModule, RouterOutlet, RouterModule, RouterLink, RouterLinkActive, ReactiveFormsModule, HttpClientModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   providers: [AuthService]

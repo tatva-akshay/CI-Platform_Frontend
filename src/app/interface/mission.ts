@@ -15,7 +15,7 @@ export interface Mission {
     registrationDeadline : Date,
     seatsLeft : number,
     shortDescription : string,
-    skills : string,
+    skills : string[],
     startDate : Date,
     status : number,
     theme : string,

@@ -1,31 +1,53 @@
 <app-header></app-header>
 <app-searchbar></app-searchbar>
+
+@if(missions == null){
+<div class="w-100 text-center my-4">
+    <p>No mission found</p>
+    <p-button [severity]="'warning'" [iconPos]="'right'" [icon]="'pi pi-arrow-right'" label="Submit new mission"
+        [outlined]="true" [styleClass]="'rounded-pill gap-2'">
+    </p-button>
+</div>
+}
+@else{
+
 <div class="w-100 d-flex flex-column align-items-center py-3">
-    <div class="w-75 d-flex justify-content-between">
+    <div class="w-75 d-flex justify-content-center justify-content-md-between">
         <h2>Explore {{missions?.length}} missions</h2>
-        <div>
-            <mat-form-field appearance="outline" class="mx-2">
-                <mat-label>Sort by</mat-label>
-                <mat-select name="food">
-                    @for (food of foods; track food) {
-                    <mat-option [value]="food">{{food}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-            <i class="pi pi-th-large mx-2"></i>
-            <i class="pi pi-bars mx-2"></i>
+        <div class="d-none d-md-block">
+            <p-dropdown [options]="foods" placeholder="Sort by" [styleClass]="'bg-transparent'"
+                [style]="{width: '10rem'}" />
+            <p-button [icon]="'pi pi-th-large'" outlined="true" (onClick)="view.set(true)" [severity]="'secondary'" [styleClass]="'border-0 rounded-circle'"/>
+            <p-button [icon]="'pi pi-bars'" outlined="true" (onClick)="view.set(false)" [severity]="'secondary'" [styleClass]="'border-0 rounded-circle'"/>
         </div>
     </div>
-    <div class="w-75">
-        <mat-grid-list cols="3" [gutterSize]="'1px'" [rowHeight]="'70vh'">
-            @for(mission of missions; track mission){
-            <mat-grid-tile>
-                <app-mission-card class="shadow" [mission]="mission"></app-mission-card>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <app-mission-card class="shadow" [mission]="mission"></app-mission-card>
-            </mat-grid-tile>
-            }
-        </mat-grid-list>
+
+    @if(view()){
+
+    <div class="w-75 row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-2">
+        @for(mission of missions; track mission){
+        <div class="col py-2 px-4">
+            <app-mission-card class="shadow" [mission]="mission"></app-mission-card>
+        </div>
+        }
+
     </div>
+    }
+    @else {
+
+    <div class="w-75 mt-2">
+        @for(mission of missions; track mission){
+        <div class="py-2 px-4">
+            <app-mission-list class="shadow" [mission]="mission"></app-mission-list>
+        </div>
+        }
+
+    </div>
+    }
+
+    <p-paginator [pageLinkSize]="5" [rows]="5" [alwaysShow]="true" [totalRecords]="120"
+        (onPageChange)="pageChange($event)" />
 </div>
+<!-- (onPageChange)="onPageChange($event)"  -->
+}
+<app-footer></app-footer>

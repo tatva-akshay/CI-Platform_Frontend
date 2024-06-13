@@ -23,48 +23,108 @@
         <form class="w-100 register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
             <div class="mb-3 d-flex flex-column w-100">
-                <label for="email">First Name</label>
-                <input pInputText id="email" aria-describedby="email-validation" formControlName="firstName"/>
-                <small id="email-validation" class="visually-hidden">
+                <label for="firstName">First Name</label>
+                <input pInputText id="firstName" aria-describedby="firstName-validation" formControlName="firstName"/>
+                
+                <small class="text-danger" id="firstName-validation" *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].dirty || registerForm.controls['firstName'].touched)">
+                    @if(registerForm.controls['firstName'].getError('required') != null){
+                        <span>Required</span>
+                    }
+                    @else if (registerForm.controls['firstName'].getError('minlength')!= null) {
+                        <span>Minimum 2 characters are required</span>
+                    }
+                    @else if (registerForm.controls['firstName'].getError('maxlength')!= null) {
+                        <span>Maximum 16 characters are allowed</span>
+                    }
                 </small>
             </div>
 
             <div class="mb-3 d-flex flex-column w-100">
-                <label for="email">Last Name</label>
-                <input pInputText id="email" aria-describedby="email-validation"  formControlName="lastName"/>
-                <small id="email-validation" class="visually-hidden">
+                <label for="lastName">Last Name</label>
+                <input pInputText id="lastName" aria-describedby="lastName-validation"  formControlName="lastName"/>
+                <small class="text-danger" id="lastName-validation" *ngIf="registerForm.controls['lastName'].invalid && (registerForm.controls['lastName'].dirty || registerForm.controls['lastName'].touched)">
+                    @if(registerForm.controls['lastName'].getError('required') != null){
+                        <span>Required</span>
+                    }
+                    @else if (registerForm.controls['lastName'].getError('minlength')!= null) {
+                        <span>Minimum 2 characters are required</span>
+                    }
+                    @else if (registerForm.controls['lastName'].getError('maxlength')!= null) {
+                        <span>Maximum 16 characters are allowed</span>
+                    }
                 </small>
             </div>
 
             <div class="mb-3 d-flex flex-column w-100">
-                <label for="email">Phone Number</label>
-                <input pInputText id="email" aria-describedby="email-validation"  formControlName="phoneNumber"/>
-                <small id="email-validation" class="visually-hidden">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="number" pInputText id="phoneNumber" aria-describedby="phoneNumber-validation"  formControlName="phoneNumber"/>
+                <small class="text-danger" id="phoneNumber-validation" *ngIf="registerForm.controls['phoneNumber'].invalid && (registerForm.controls['phoneNumber'].dirty || registerForm.controls['phoneNumber'].touched)">
+                    @if(registerForm.controls['phoneNumber'].getError('required') != null){
+                        <span>Required</span>
+                    }
+                    @else if (registerForm.controls['phoneNumber'].getError('phoneNumberInvalid')!= null) {
+                        <span>Please enter valid Phone Number</span>
+                    }
                 </small>
             </div>
 
             <div class="mb-3 d-flex flex-column w-100">
                 <label for="email">Email Address</label>
                 <input pInputText id="email" aria-describedby="email-validation" formControlName="email" />
-                <small id="email-validation" class="visually-hidden">
+                <small class="text-danger" id="email-validation" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+                    @if(registerForm.controls['email'].getError('required') != null){
+                        <span>Required</span>
+                    }
+                    @else if (registerForm.controls['email'].getError('email')!= null) {
+                        <span>Please enter valid email address</span>
+                    }
+                    @else if (registerForm.controls['email'].getError('maxlength')!= null) {
+                        <span>Maximum 128 characters are allowed</span>
+                    }
                 </small>
             </div>
 
             <div class="mb-3 d-flex flex-column w-100">
                 <label for="password">Password</label>
                 <input pInputText id="password" type="password" aria-describedby="password-validation"  formControlName="password"/>
-                <small id="password-validation" class="visually-hidden">
+                <small class="text-danger" id="password-validation" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
+                    @if(registerForm.controls['password'].getError('required') != null){
+                        <span>Required</span>
+                    }
+                    @else if (registerForm.controls['password'].getError('passwordInvalid')!= null) {
+                        <span>Please enter valid password</span>
+                    }
+                    @else if (registerForm.controls['password'].getError('minlength')!= null) {
+                        <span>Minimum 8 characters are required</span>
+                    }
+                    @else if (registerForm.controls['password'].getError('maxlength')!= null) {
+                        <span>Maximum 255 characters are allowed</span>
+                    }
                 </small>
             </div>
 
             <div class="mb-3 d-flex flex-column w-100">
-                <label for="password">Confirm Password</label>
-                <input pInputText id="password" type="password" aria-describedby="password-validation"  formControlName="confirmPassword"/>
-                <small id="password-validation" class="visually-hidden">
+                <label for="confirmPassword">Confirm Password</label>
+                <input pInputText id="confirmPassword" type="password" aria-describedby="confirmPassword-validation"  formControlName="confirmPassword"/>
+                <small class="text-danger" id="password-validation" *ngIf="(registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)) || registerForm.getError('PasswordMismatch') != null"> 
+                    @if(registerForm.controls['confirmPassword'].getError('required') != null){
+                        <span>Required</span>
+                    }
+                    @else if (registerForm.controls['confirmPassword'].getError('passwordInvalid')!= null) {
+                        <span>Please enter valid Confirm password</span>
+                    }
+                    @else if (registerForm.controls['confirmPassword'].getError('minlength')!= null) {
+                        <span>Minimum 8 characters are required</span>
+                    }
+                    @else if (registerForm.controls['confirmPassword'].getError('maxlength')!= null) {
+                        <span>Maximum 255 characters are allowed</span>
+                    }
+                    @else if(registerForm.getError('PasswordMismatch')) {
+                        <span>Password and confirm password should  be same</span>
+                    }
                 </small>
             </div>
-
-            <button class="register-btn btn rounded-pill border w-100 mb-2" type="submit" [disabled]="registerForm.invalid">Register</button>
+            <button pButton [disabled]="registerForm.invalid" class="p-button-rounded rounded-pill w-100 text-nowrap" [severity]="'warning'" [outlined]="true" [type]="'submit'" label="Register"></button>
             
             <p class=" w-100 mb-2 text-center">
                 <small> <a class="text-decoration-none" routerLink="/forget-password">Lost your password?</a></small>

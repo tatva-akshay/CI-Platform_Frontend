@@ -1,26 +1,15 @@
 <div class="w-100 d-flex justify-content-center bg-light menubar-border header-1">
 
-    <p-menubar [model]="items">
+    <p-menubar [model]="items" [styleClass]="'py-1'" >
         <ng-template pTemplate="item" let-item let-root="root">
-            <div class="me-4 my-1 pt-2" >
+            <div class="my-3 mb-0 p-2 text-center h-100 align-self-center">
                 {{ item.label }}
             </div>    
         </ng-template>
         <ng-template pTemplate="end">
             <div class="d-flex align-items-center">
-                <div class="avatar-hover">
+                <p-button [severity]="'warning'" label="Submit new mission" [outlined]="true" [styleClass]="'rounded-pill gap-2 py-2'" ></p-button>
                     <p-avatar class="ms-4 my-1" image="data:image/png;base64,{{avatar}}" shape="circle" /> 
-                    <div class="position-absolute d-none" >
-                        
-                        <p>ds</p>
-                        <p>ds</p>
-                        <p>ds</p>
-                    </div>
-                </div>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item>Item 1</button>
-                    <button mat-menu-item>Item 2</button>
-                </mat-menu>
                 <div class="ms-4 my-1">
                     <span >{{userName}}</span>
                 </div>

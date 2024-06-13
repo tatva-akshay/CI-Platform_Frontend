@@ -1,11 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { Mission } from '../../interface/mission';
+import { FormsModule } from '@angular/forms';
+
+import { MatIconModule } from '@angular/material/icon'
+
 import { Card, CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon'
+
+import { Mission } from '../../interface/mission';
 
 @Component({
   selector: 'app-mission-card',
@@ -17,6 +20,5 @@ import { MatIconModule } from '@angular/material/icon'
 export class MissionCardComponent {
   @Input() mission? : Mission;
   ngOnInit(){
-    console.log(this.mission);
   }
 }
