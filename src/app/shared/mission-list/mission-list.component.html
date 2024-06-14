@@ -4,13 +4,17 @@
             <img alt="Card" class="card-image" src="data:image/png;base64,{{mission?.thumbnail}}" />
             <p class="position-absolute end-0 top-0 m-2 px-2 py-2 rounded-pill text-light location"><i
                     class="pi pi-map-marker mx-1"></i>{{mission?.city}}</p>
-            @if(mission?.missionUserDTO?.isApplied){
+            @if(validateIsClosed(mission?.endDate, mission?.registrationDeadline)){
+            <p class="position-absolute start-0 top-0 m-2 ms-0 px-2 py-2 rounded-pill text-light bg-success applied">
+                Closed
+                }
+                @else if(mission?.missionUserDTO?.isApplied){
             <p class="position-absolute start-0 top-0 m-2 ms-0 px-2 py-2 rounded-pill text-light bg-success applied">
                 Applied
                 }
             <div class="position-absolute end-0 bottom-0 m-2 py-2">
 
-                <div class="my-2 px-2 fs-2 py-2 rounded-pill text-light location">
+                <div class="my-2 px-2 py-2 rounded-pill text-light location">
                     @if(mission?.missionUserDTO?.isFavourite){
                     <i class="pi pi-heart-fill mx-1"></i>
                     }
@@ -35,11 +39,11 @@
                         {{mission?.city}}
                     </p>
                     <p class="m-1 text-nowrap rounded-pill col">
-                        <i class="pi pi-map-marker mx-1"></i>
+                        <i class="pi pi-slack mx-1"></i>
                         {{mission?.theme}}
                     </p>
                     <p class="m-1 text-nowrap rounded-pill col">
-                        <i class="pi pi-map-marker mx-1"></i>
+                        <i class="pi pi-users mx-1"></i>
                         {{mission?.organisationName}}
                     </p>
                 </div>
@@ -50,7 +54,7 @@
             </div>
             <p class="p-card-title m-1">{{mission?.title}}</p>
             <p class="m-1" style="height: 2.6rem; overflow: hidden;">{{mission?.shortDescription}}</p>
-            <div class="d-md-flex w-100 justify-content-between align-items-center gap-2">
+            <div class="d-md-flex w-100 justify-content-between align-items-center gap-2 m-1">
 
                 <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4 justify-content-between">
 
@@ -64,7 +68,7 @@
                     <div class="col">
                         <i class="pi pi-bullseye fs-4"></i>
                         <b class="ms-2 h-100 align-middle pt-2">
-                            <p-progressBar [value]="50" [color]="'rgb(201, 113, 26)'" [showValue]="false"
+                            <p-progressBar [value]="30" [color]="'rgb(201, 113, 26)'" [showValue]="false"
                                 [style]="{'height':'10px'}" />
                             <small class="text-nowrap">8000 achieved</small>
                         </b>
@@ -99,16 +103,17 @@
                 </div> -->
 
                 </div>
-                @if(!mission?.missionUserDTO?.isApplied) {
+                @if(mission?.missionUserDTO?.isApplied || (validate(mission?.seatsLeft, mission?.endDate,
+                mission?.registrationDeadline))) {
+
                 <div class="text-center text-md-end m-2 m-md-0  col">
-                    <button class="apply-btn text-nowrap btn rounded-pill border w-auto ">Apply <i
+                    <button class="apply-btn text-nowrap btn rounded-pill border w-auto " [routerLink]="['../mission', mission?.missionId]">View Details <i
                             class="pi pi-arrow-right ms-3"></i></button>
                 </div>
-
                 }
                 @else {
                 <div class="text-center text-md-end m-2 m-md-0  col">
-                    <button class="apply-btn text-nowrap btn rounded-pill border w-auto ">View Details <i
+                    <button class="apply-btn text-nowrap btn rounded-pill border w-auto " [routerLink]="['../mission', mission?.missionId]">Apply <i
                             class="pi pi-arrow-right ms-3"></i></button>
                 </div>
                 }

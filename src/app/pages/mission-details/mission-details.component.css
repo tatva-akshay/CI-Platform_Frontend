@@ -1,0 +1,20 @@
+
+  ::ng-deep.p-paginator-current {
+    order: 2;
+    text-wrap: nowrap;
+    margin: 0 auto;
+  }
+  
+  ::ng-deep.p-paginator-prev {
+    order: 1;
+  }
+  
+  ::ng-deep.p-paginator-next {
+    order: 3;
+  }
+  
+  ::ng-deep.p-paginator {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }

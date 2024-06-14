@@ -1,0 +1,207 @@
+<app-header />
+<div class="w-100 d-flex justify-content-center">
+    <div class="w-75">
+        <div class="w-100 d-flex">
+
+            <p-galleria [value]="missiondetails?.media" [showItemNavigators]="true" [circular]="true"
+                [responsiveOptions]="responsiveOptions" [circular]="true" [numVisible]="5"
+                [containerStyle]="{ 'max-width': '30vw', 'padding': '10px'}" [showIndicatorsOnItem]="true"
+                [showThumbnailNavigators]="false">
+                <ng-template pTemplate="item" let-item>
+                    <img src="data:image/png;base64,{{item}}" style="width: 100%; height: 40vh; display: block;" />
+                </ng-template>
+                <ng-template pTemplate="thumbnail" let-item>
+                    <div class="grid grid-nogutter justify-content-center">
+                        <img class="border border-dark rounded" src="data:image/png;base64,{{item}}"
+                            style="display: block; height: 5rem; width: 5rem;" />
+                    </div>
+                </ng-template>
+            </p-galleria>
+
+            <div class="p-3 w-100 d-flex flex-column justify-content-between">
+                <div class="w-100">
+                    <h3>{{missiondetails?.title}}</h3>
+                    <div class="w-100 d-flex justify-content-between align-items-center">
+                        <div class="">
+                            <p-rating [ngModel]="missiondetails?.rating" style="color: goldenrod;" [cancel]="false"
+                                [readonly]="true" />
+                        </div>
+                        <div>
+                            <button pButton class="p-button-rounded fs-6 rounded-pill w-100" [icon]="'pi pi-heart'"
+                                [severity]="'warning'" [outlined]="true" [rounded]="true"
+                                label="Add to Favourites"></button>
+                        </div>
+
+                    </div>
+                    <p>{{missiondetails?.shortDescription}}</p>
+                </div>
+                <div>
+
+                    <div class="border my-2 w-100 position-relative justify-content-center">
+                        <div class="position-absolute w-100 text-center" style="top: -12px; ">
+                            <small class="text-nowrap bg-light border rounded-pill px-2 py-1">From
+                                {{missiondetails?.startDate}} until {{missiondetails?.endDate}}</small>
+                        </div>
+                    </div>
+                    <div class="pt-4 px-2 d-flex w-100">
+                        <div class="d-flex w-50">
+                            <i class="pi pi-clock fs-2"></i>
+                            <b class="ms-2">
+                                {{missiondetails?.registrationDeadline}} <br>
+                                <small>Registration Deadline</small>
+                            </b>
+                        </div>
+                        <div class="d-flex w-50">
+                            <i class="pi pi-user-minus fs-2"></i>
+                            <b class="ms-2">
+                                {{missiondetails?.seatsLeft}} <br>
+                                <small>Seats left</small>
+                            </b>
+                        </div>
+                    </div>
+
+                    <div class="border my-3"></div>
+
+                </div>
+                <div class="row gap-2 h-25">
+                    <div class="col border text-center justify-content-between d-flex flex-column">
+                        <i class="pi pi-map-marker fw-bold pt-2 fs-2 w-100"></i>
+                        <small>City</small>
+                        <h6>{{missiondetails?.city}}</h6>
+                    </div>
+                    <div class="col border text-center justify-content-between d-flex flex-column">
+                        <i class="pi pi-slack fw-bold pt-2 fs-2 w-100"></i>
+                        <small>Theme</small>
+                        <h6>{{missiondetails?.theme}}</h6>
+                    </div>
+                    <div class="col border text-center justify-content-between d-flex flex-column">
+                        <i class="pi pi-calendar fw-bold pt-2 fs-2 w-100"></i>
+                        <small>Start Date</small>
+                        <h6>{{missiondetails?.startDate}}</h6>
+                    </div>
+                    <div class="col border text-center justify-content-between d-flex flex-column">
+                        <i class="pi pi-users fw-bold pt-2 fs-2 w-100"></i>
+                        <small>Organisation</small>
+                        <h6>{{missiondetails?.organisationName}}</h6>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 mt-2">
+                    <button pButton class="p-button-rounded gap-1 fs-6 rounded-pill" [icon]="'pi pi-user-plus'"
+                        [severity]="'secondary'" [outlined]="true" [rounded]="true"
+                        label="Recommend to a co-worker"></button>
+                    <button pButton class="p-button-rounded gap-1 fs-6 rounded-pill" [severity]="'warning'"
+                        [outlined]="true" [icon]="'pi pi-arrow-right'" [iconPos]="'right'" [rounded]="true"
+                        label="Apply now"></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="w-100 d-flex justify-content-center">
+    <div class="w-75 d-flex justify-content-between">
+        <div class="w-60">
+            <p-tabView>
+                <p-tabPanel header="Mission">
+                    <p style="text-align: justify;">
+                        {{missiondetails?.description}}
+                    </p>
+                    <h5>Documents</h5>
+                    @for(doc of missiondetails?.documents; track doc; let i = $index){
+                    <button class="mx-2" pButton (click)="convertBase64ToPdf(i)" [outlined]="true"
+                        [severity]="'secondary'">Document {{i + 1 }}</button>
+                    }
+                </p-tabPanel>
+                <p-tabPanel header="Organisation">
+                    <p>
+                        {{missiondetails?.organisationDetails}}
+                    </p>
+                </p-tabPanel>
+                <p-tabPanel header="Comments">
+                    <p>
+                        At vero eos et accusamus et iusto odio dignissimos...
+                    </p>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+        <div class="w-25">
+            <div class="border p-2">
+                <h5>Information</h5>
+                <hr>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Skills</th>
+                            <td>{{ missiondetails?.skills }}</td>
+                        </tr>
+                        <tr>
+                            <th>Days</th>
+                            <td>{{ missiondetails?.availability }}</td>
+                        </tr>
+                        <tr>
+                            <th>Rating</th>
+                            <td>
+                                <p-rating [ngModel]="missiondetails?.rating" style="color: goldenrod;" [cancel]="false"
+                                    [readonly]="true" />
+                                <small class="text-nowrap">
+                                    (by {{missiondetails?.ratingCount}} volunteers)
+                                </small>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="border p-2 mt-2">
+                <h5>Recent Volunteers</h5>
+                <hr>
+                <div class="row row-cols-3">
+                    @for(volunteer of missiondetails?.recentVolunteers; track volunteer){
+                    <div class="col text-center">
+                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
+                        <div class="">
+                            <small>{{volunteer.userName}}</small>
+                        </div>
+                    </div>
+                    }
+                    @for(volunteer of missiondetails?.recentVolunteers; track volunteer){
+                    <div class="col text-center">
+                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
+                        <div class="">
+                            <small>{{volunteer.userName}}</small>
+                        </div>
+                    </div>
+                    }
+                    @for(volunteer of missiondetails?.recentVolunteers; track volunteer){
+                    <div class="col text-center">
+                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
+                        <div class="">
+                            <small>{{volunteer.userName}}</small>
+                        </div>
+                    </div>
+                    }
+                    @for(volunteer of missiondetails?.recentVolunteers; track volunteer){
+                    <div class="col text-center">
+                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
+                        <div class="">
+                            <small>{{volunteer.userName}}</small>
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div>
+                    <p-paginator [rows]="9" [totalRecords]="missiondetails?.volunteerCount"
+                        [showCurrentPageReport]="true" [showPageLinks]="false" [showJumpToPageDropdown]="false"
+                        [showFirstLastIcon]="false"
+                        currentPageReportTemplate="{first} - {last} of {totalRecords} Recent Volunteers" />
+                </div>
+            </div>
+            <div class="border"></div>
+        </div>
+    </div>
+</div>
+<div class="w-100 d-flex justify-content-center mt-3">
+    <div class="w-75 d-flex justify-content-center">
+        <h4>Related Missions</h4>
+    </div>
+</div>

@@ -8,21 +8,21 @@
                         <i class="pi pi-search"></i>
                     </p-inputGroupAddon>
                 </label>
-                <input pInputText id="search" placeholder="Search mission..." class="border-0 bg-transparent" />
+                <input pInputText id="search" placeholder="Search mission..." class="border-0 bg-transparent" [(ngModel)]="search"  (keypress)="searchFiltersEmit()"/>
             </p-inputGroup>
         </ng-template>
         <ng-template pTemplate="end">
             <div class="d-md-flex">
                 
                 <p-multiSelect [options]="countries" [(ngModel)]="countryFilters" optionValue="name" optionLabel="name" placeholder="Country" [showClear]="true"
-                    [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />
+                    (onChange)="countryFiltersEmit()" [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />
                     
                 <p-multiSelect [options]="cities" [(ngModel)]="cityFilters" optionValue="name" optionLabel="name" placeholder="City" [showClear]="true"
-                    [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />
+                    (onChange)="cityFiltersEmit()" [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />
                 <p-multiSelect [options]="themes" [(ngModel)]="themeFilters" optionValue="name" optionLabel="name" placeholder="Theme" [showClear]="true"
-                    [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />
+                    (onChange)="themeFiltersEmit()" [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />
                 <p-multiSelect [options]="skills" [(ngModel)]="skillFilters" optionValue="name" optionLabel="name" placeholder="Skill" [showClear]="true"
-                    [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />               
+                    (onChange)="skillFiltersEmit()" [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />               
 
             </div>
         </ng-template>
@@ -33,7 +33,41 @@
     <p-menubar>
         <ng-template pTemplate="start" let-item let-root="root">
             <small>
-                {{countryFilters}} {{cityFilters}} {{themeFilters}} {{skillFilters}}
+                @for(theme of themeFilters; track theme){
+                    <p-chip 
+                        [label]="theme"
+                        separator="," 
+                        [removable]="true"
+                        (onRemove)="removeTheme(theme)"
+                        [styleClass]="'px-2 gap-2 py-1 me-1 border bg-transparent'"
+                    />    
+                }
+                @for(skill of skillFilters; track skill){
+                    <p-chip 
+                        [label]="skill"
+                        separator="," 
+                        [removable]="true"
+                        (onRemove)="removeSkill(skill)"
+                        [styleClass]="'px-2 gap-2 py-1 me-1 border bg-transparent'"
+                    />    
+                }
+                @for(country of countryFilters; track country){
+                    <p-chip 
+                        [label]="country"
+                        separator="," 
+                        [removable]="false"
+                        [styleClass]="'px-2 gap-2 py-1 me-1 border bg-transparent'"
+                    />    
+                }
+                @for(city of cityFilters; track city){
+                    <p-chip 
+                        [label]="city"
+                        separator="," 
+                        [removable]="true"
+                        (onRemove)="removeCity(city)"
+                        [styleClass]="'px-2 gap-2 py-1 me-1 border bg-transparent'"
+                    />    
+                }
             </small>
         </ng-template>
         <ng-template pTemplate="end">
@@ -42,3 +76,4 @@
     </p-menubar>
 
 </div>
+    

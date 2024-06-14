@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { HomeComponent } from './pages/home/home.component';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { MissionDetailsComponent } from './pages/mission-details/mission-details.component';
 
 export const routes: Routes = [
     {
@@ -32,8 +33,13 @@ export const routes: Routes = [
         title: "Reset Password"
     },
     {
-        path: "dashboard",
-        component: DashboardComponent,
-        title: "Dashboard"
+        path: "home",
+        component: HomeComponent,
+        title: "home"
+    },
+    {
+        path: "mission/:id",
+        component: MissionDetailsComponent,
+        title: "Mission"
     }
 ];

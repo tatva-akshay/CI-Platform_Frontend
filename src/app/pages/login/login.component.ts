@@ -52,7 +52,7 @@ export class LoginComponent {
         window.sessionStorage.setItem("userName", userName);
         window.sessionStorage.setItem("userId", userId);
         this.messageService.add({ severity: 'success', detail: 'User Logged in successfully', life: 3000 });
-        this._router.navigate(['/dashboard']);        
+        this._router.navigate(['/home']);        
       }
     }, 
     (error) => {

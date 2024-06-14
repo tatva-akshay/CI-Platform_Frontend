@@ -85,3 +85,34 @@ body {
 .p-card-title {
     text-wrap: nowrap;
 }
+.p-galleria-thumbnail-container{
+    padding: 5px;
+    background-color: transparent;
+   /* background-color: rgba(0, 0, 0, 0.2); */
+}
+.p-tabview-nav-link{
+    color: #9c9c9c;
+    text-decoration: none;
+    border: 0;
+}
+.p-highlight > .p-tabview-nav-link{
+    color: black !important;
+    border-bottom: black 3px solid !important;
+}
+.w-60 {
+    max-width: 70%;
+}
+
+/* .p-paginator-current {
+    display: none;
+    order: 2;
+    margin: 0 auto;
+  }
+  
+  .p-paginator-prev {
+    order: 1;
+  }
+  
+  .p-paginator-next {
+    order: 3;
+  } */

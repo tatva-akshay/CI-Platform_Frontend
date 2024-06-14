@@ -3,5 +3,8 @@ export interface ApiResponse {
     isSuccess: boolean,
     result: any,
     token: string,
+    rowCount : number,
+    page : number,
+    pageSize : number,
     errorMessages: string[]    
 }

@@ -4,13 +4,17 @@
             <p class="position-absolute end-0 m-2 px-2 py-2 rounded-pill text-light location"><i
                     class="pi pi-map-marker mx-1"></i>{{mission?.city}}</p>
             <img alt="Card" src="data:image/png;base64,{{mission?.thumbnail}}" width="100%" height="300px" />
-            @if(mission?.missionUserDTO?.isApplied){
-                <p class="position-absolute start-0 top-0 m-2 ms-0 px-2 py-2 rounded-pill text-light bg-success applied">
-                    Applied
-            }
+            @if(validateIsClosed(mission?.endDate, mission?.registrationDeadline)){
+            <p class="position-absolute start-0 top-0 m-2 ms-0 px-2 py-2 rounded-pill text-light bg-warning applied">
+                Closed
+                }
+                @else if(mission?.missionUserDTO?.isApplied){
+            <p class="position-absolute start-0 top-0 m-2 ms-0 px-2 py-2 rounded-pill text-light bg-success applied">
+                Applied
+                }
             <div class="position-absolute end-0 bottom-0 m-2 py-2">
 
-                <div class="my-2 px-2 fs-2 py-2 rounded-pill text-light location">
+                <div class="my-2 px-2 py-2 rounded-pill text-light location">
                     @if(mission?.missionUserDTO?.isFavourite){
                     <i class="pi pi-heart-fill mx-1"></i>
                     }
@@ -93,18 +97,18 @@
             </div>
             }
         </div>
-        <div>
-            <hr class="mt-0"/>
-            @if(!mission?.missionUserDTO?.isApplied) {
+        <div class="pb-2">
+            <hr class="mt-0" />
+            @if(mission?.missionUserDTO?.isApplied || (validate(mission?.seatsLeft, mission?.endDate,
+            mission?.registrationDeadline))) {
             <div class="text-center">
-                <button class="apply-btn btn rounded-pill border w-auto ">Apply <i
+                <button class="apply-btn btn rounded-pill border w-auto " [routerLink]="['../mission', mission?.missionId]">View Details <i
                         class="pi pi-arrow-right ms-3"></i></button>
             </div>
-
             }
             @else {
             <div class="text-center">
-                <button class="apply-btn btn rounded-pill border w-auto ">View Details <i
+                <button class="apply-btn btn rounded-pill border w-auto " [routerLink]="['../mission', mission?.missionId]">Apply <i
                         class="pi pi-arrow-right ms-3"></i></button>
             </div>
             }

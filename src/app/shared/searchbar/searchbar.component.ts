@@ -1,9 +1,5 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component, EventEmitter, OnChanges, Output, SimpleChanges } from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-import { MatMenuModule } from '@angular/material/menu'
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { MenubarModule } from 'primeng/menubar';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -13,6 +9,7 @@ import { MenuItem } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect'
 import { FloatLabelModule } from 'primeng/floatlabel'
 import { ButtonModule } from 'primeng/button'
+import { ChipModule } from 'primeng/chip'
 
 import { ThemeService } from '../../services/theme/theme.service';
 import { CountryService } from '../../services/country/country.service';
@@ -22,7 +19,7 @@ import { SkillsService } from '../../services/skills/skills.service';
 @Component({
   selector: 'app-searchbar',
   standalone: true,
-  imports: [MatFormFieldModule, MatSelectModule, ButtonModule, FormsModule, ReactiveFormsModule, MenubarModule, FloatLabelModule, MultiSelectModule, SearchIcon, MatMenuModule, InputGroupModule, InputGroupAddonModule],
+  imports: [ButtonModule, ChipModule, FormsModule, ReactiveFormsModule, MenubarModule, FloatLabelModule, MultiSelectModule, SearchIcon, InputGroupModule, InputGroupAddonModule],
   templateUrl: './searchbar.component.html',
   styleUrl: './searchbar.component.css',
   providers: [ThemeService, CountryService, CityService, SkillsService]
@@ -30,6 +27,46 @@ import { SkillsService } from '../../services/skills/skills.service';
 
 
 export class SearchbarComponent {
+
+  @Output() getThemeFilters = new EventEmitter<any>();
+  @Output() getCountryFilters = new EventEmitter<any>();
+  @Output() getCityFilters = new EventEmitter<any>();
+  @Output() getSkillFilters = new EventEmitter<any>();
+  @Output() searchFilters = new EventEmitter<any>();
+
+  themeFiltersEmit() {
+    this.getThemeFilters.emit(this.themeFilters);
+  }
+  countryFiltersEmit() {
+    this.getCountryFilters.emit(this.cityFilters);
+  }
+  cityFiltersEmit() {
+    this.getCityFilters.emit(this.cityFilters);
+  }
+  skillFiltersEmit() {
+    this.getSkillFilters.emit(this.skillFilters);
+  }
+  searchFiltersEmit() {
+    this.searchFilters.emit(this.search);
+  }
+
+  removeTheme(removedTheme: any){
+   this.themeFilters = this.themeFilters.filter(x=>x!=removedTheme);
+   this.themeFiltersEmit()
+  }
+  removeSkill(removedSkill: any){
+   this.skillFilters = this.skillFilters.filter(x=>x!=removedSkill);
+   this.skillFiltersEmit()
+  }
+  removeCountry(removedCountry: any){
+   this.countryFilters = this.cityFilters.filter(x=>x!=removedCountry);
+   this.countryFiltersEmit()
+  }
+  removeCity(removedCity: any){
+   this.cityFilters = this.cityFilters.filter(x=>x!=removedCity);
+   this.cityFiltersEmit()
+  }
+
   toppings = new FormControl('');
   constructor(
     private _themeService : ThemeService,
@@ -42,17 +79,25 @@ export class SearchbarComponent {
   countries: any;
   cities: any;
   skills: any;
-  themeFilters: any;
-  countryFilters: any;
-  cityFilters: any;
-  skillFilters: any;
+  search: string = "";
+  themeFilters: string[] = [];
+  countryFilters: string[] = [];
+  cityFilters: string[] = [];
+  skillFilters: string[] = [];
 
   clearAll(){
-    this.themeFilters = null;
-    this.skillFilters = null;
-    this.cityFilters = null;
-    this.countryFilters = null;
+    this.themeFilters = [];
+    this.skillFilters = [];
+    this.cityFilters = [];
+    // this.countryFilters = [];
+    this.search = "";
+    this.themeFiltersEmit();
+    this.skillFiltersEmit();
+    // this.countryFiltersEmit();
+    this.cityFiltersEmit();
+    this.searchFiltersEmit();
   }
+
   ngOnInit() {
     this._themeService.get().subscribe((response) => {
       if(response.isSuccess){
