@@ -79,6 +79,7 @@ export class HomeComponent {
   }
   countryFiltersEmit(searchedCountries: any) {
     this.countries = searchedCountries;
+    console.log(this.countries)
     this.getMissions()
   }
   cityFiltersEmit(searchedCities: any) {

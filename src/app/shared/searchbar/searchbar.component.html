@@ -14,10 +14,10 @@
         <ng-template pTemplate="end">
             <div class="d-md-flex">
                 
-                <p-multiSelect [options]="countries" [(ngModel)]="countryFilters" optionValue="name" optionLabel="name" placeholder="Country" [showClear]="true"
+                <p-multiSelect [options]="countries" [(ngModel)]="countryFilters" placeholder="Country" [showClear]="true"
                     (onChange)="countryFiltersEmit()" [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />
                     
-                <p-multiSelect [options]="cities" [(ngModel)]="cityFilters" optionValue="name" optionLabel="name" placeholder="City" [showClear]="true"
+                <p-multiSelect [options]="cities" [(ngModel)]="cityFilters" placeholder="City" [showClear]="true"
                     (onChange)="cityFiltersEmit()" [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />
                 <p-multiSelect [options]="themes" [(ngModel)]="themeFilters" optionValue="name" optionLabel="name" placeholder="Theme" [showClear]="true"
                     (onChange)="themeFiltersEmit()" [maxSelectedLabels]="1" [styleClass]="'w-10vw w-100 bg-transparent border-0'" />

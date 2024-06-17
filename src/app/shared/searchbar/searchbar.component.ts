@@ -38,7 +38,7 @@ export class SearchbarComponent {
     this.getThemeFilters.emit(this.themeFilters);
   }
   countryFiltersEmit() {
-    this.getCountryFilters.emit(this.cityFilters);
+    this.getCountryFilters.emit(this.countryFilters);
   }
   cityFiltersEmit() {
     this.getCityFilters.emit(this.cityFilters);

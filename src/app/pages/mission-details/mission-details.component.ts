@@ -47,6 +47,7 @@ export class MissionDetailsComponent {
 
   applyMission(id: number){
     if(this.missionId > 0){
+
       this._missionService.apply(id).subscribe((response) => {
         if(response.isSuccess){
           this._messageService.add({ severity: 'success', summary: 'Applied', detail: 'Applied successfully', life: 3000 });

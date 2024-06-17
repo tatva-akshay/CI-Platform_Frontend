@@ -62,3 +62,6 @@
         background-size: cover;
         max-height: 100vh !important;
     }
+    .w-75-fix{
+      width: 75%;
+    }

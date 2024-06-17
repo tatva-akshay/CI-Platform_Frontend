@@ -117,3 +117,6 @@ body {
   .p-paginator-next {
     order: 3;
   } */
+  .p-fileupload-content{
+    display: none;
+}

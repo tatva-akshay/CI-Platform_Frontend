@@ -11,6 +11,6 @@ export class CountryService {
   constructor(private _httpClient: HttpClient) { }
 
   get(): Observable<ApiResponse>{
-    return this._httpClient.get<ApiResponse>('https://localhost:7017/countries');
+    return this._httpClient.get<ApiResponse>('https://localhost:7017/auth/countries');
   }
 }

@@ -1,20 +1,143 @@
 <div class="w-100 d-flex justify-content-center bg-light menubar-border header-1">
 
-    <p-menubar [model]="items" [styleClass]="'py-1'" >
+    <p-menubar [model]="items" [styleClass]="'py-1'">
         <ng-template pTemplate="item" let-item let-root="root">
             <div class="my-3 mb-0 p-2 text-center h-100 align-self-center">
                 {{ item.label }}
-            </div>    
+            </div>
         </ng-template>
         <ng-template pTemplate="end">
             <div class="d-flex align-items-center">
-                <p-button [severity]="'warning'" label="Submit new mission" [outlined]="true" [styleClass]="'rounded-pill gap-2 py-2'" ></p-button>
-                    <p-avatar class="ms-4 my-1" image="data:image/png;base64,{{avatar}}" shape="circle" /> 
+                <p-button [severity]="'warning'" label="Submit new mission" (click)="showDialog()" [outlined]="true"
+                    [styleClass]="'rounded-pill gap-2 py-2'"></p-button>
+                <p-avatar class="ms-4 my-1" image="data:image/png;base64,{{avatar}}" shape="circle" />
                 <div class="ms-4 my-1">
-                    <span >{{userName}}</span>
+                    <span>{{userName}}</span>
                 </div>
             </div>
         </ng-template>
     </p-menubar>
-    
+
 </div>
+
+<p-dialog header="Add New Mission" [modal]="true" [visible]="visible"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '30vw' }" [draggable]="false"
+    [resizable]="false">
+    <form [formGroup]="missionForm" (ngSubmit)="onSubmit()">
+
+        <div class="row">
+            <div class="mb-3 col-6">
+                <label for="country" class="w-100">Country</label>
+                <p-dropdown [options]="countries" [id]="'country'" formControlName="country" placeholder="Select Country" [styleClass]="'w-100'"
+                    (onChange)="getCities($event)" />
+            </div>
+            <div class="mb-3 col-6">
+                <label for="cities" class="w-100">City</label>
+                <p-dropdown [options]="cities" [id]="'cities'" formControlName="city" placeholder="Select City" [styleClass]="'w-100'" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="title" class="w-100">Mission Title</label>
+                <input pInputText class="w-100" id="title" formControlName="title" placeholder="Enter Mission Title" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="description" class="w-100">Mission Description</label>
+                <input pInputText class="w-100" id="description" formControlName="description" placeholder="Enter Mission Description" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="organisationName" class="w-100">Organisation Name</label>
+                <input pInputText class="w-100" id="organisationName" formControlName="organisationName" placeholder="Enter Mission Organisation Name" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="organisationDetails" class="w-100">Organisation Details</label>
+                <input pInputText class="w-100" id="organisationDetails" formControlName="organisationDetails" placeholder="Enter Organisation Details" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="startDate" class="w-100">Start Date</label>
+                <input type="date" pInputText class="w-100" id="startDate" formControlName="startDate" placeholder="Select start date" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="endDate" class="w-100">End Date</label>
+                <input type="date" pInputText class="w-100" id="endDate" formControlName="endDate" placeholder="Enter end date" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="seats" class="w-100">total Seats</label>
+                <input type="number" pInputText class="w-100" id="seats" formControlName="totalSeats" placeholder="Enter total seats" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="registrationDeadline" class="w-100">Mission registration deadline</label>
+                <input type="date" pInputText class="w-100" id="registrationDeadline"  formControlName="registrationDeadline"
+                    placeholder="Enter Mission Registration deadline" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="themes" class="w-100">Mission Theme</label>
+                <p-dropdown [options]="themes" [id]="'themes'" [optionValue]="'name'" [optionLabel]="'name'"  formControlName="theme"
+                    placeholder="Select Mission Theme" [styleClass]="'w-100'" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="skills" class="w-100">Mission Skills</label>
+                <p-multiSelect [options]="skills" [id]="'skills'" optionLabel="name" [optionValue]="'name'" placeholder="Select mission Skills"  formControlName="skills"
+                    [styleClass]="'w-100'" />
+            </div>
+            <div class="mb-3 col-12">
+                <label for="images" class="w-100">Mission Images</label>
+                <p-fileUpload [id]="'images'" name="demo[]" [multiple]="true" [auto]="false" 
+                    (onSelect)="onImagesSelect($event)" accept="image/*" maxFileSize="1000000" 
+                    
+                    >
+                    <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback"
+                        let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+                        <div class="w-100 d-flex justify-content-center position-relative align-items-center"
+                            style="height: 100px;">
+                            @if(!files || files.length === 0){
+                            <button pButton type="button" class="w-100 h-100" [severity]="'secondary'" (click)="chooseCallback()"
+                                icon="pi pi-images" [rounded]="true" [outlined]="true" [icon]="'pi pi-cloud-upload'"
+                                [size]="'large'" label="Upload image here"></button>
+                            }
+                            @else{
+                            <span>{{files.length}} files selected</span>
+                            <button pButton type="button" class="position-absolute end-0 top-0" (click)="clearCallback()"
+                                icon="pi pi-times" [text]="true" severity="danger"
+                                [disabled]="!files || files.length === 0"></button>
+                            }
+                        </div>
+                    </ng-template>
+
+                </p-fileUpload>
+            </div>
+            <div class="mb-3 col-12">
+                <label for="documents" class="w-100">Mission Documents</label>
+                <p-fileUpload [id]="'documents'" name="demo2[]" [multiple]="true"
+                    [auto]="true" [draggable]="true" (onSelect)="onDocumentsSelect($event)" accept=".pdf" maxFileSize="10000000000">
+                    <ng-template pTemplate="header" let-filess let-chooseCallback2="chooseCallback"
+                        let-clearCallback2="clearCallback" let-uploadCallback2="uploadCallback">
+                        <div class="w-100 d-flex justify-content-center position-relative align-items-center"
+                            style="height: 100px;">
+                            @if(!filess || filess.length === 0){
+                            <button pButton type="button" class="w-100 h-100" [severity]="'secondary'" (click)="chooseCallback2()"
+                                [rounded]="true" [outlined]="true" [icon]="'pi pi-cloud-upload'"
+                                [size]="'large'" label="Upload files here"></button>
+                            }
+                            @else{
+                            <span>{{filess.length}} files selected</span>
+                            <button pButton type="button" class="position-absolute end-0 top-0" (click)="clearCallback2()"
+                                icon="pi pi-times" [text]="true" severity="danger"
+                                [disabled]="!filess || filess.length === 0"></button>
+                            }
+                        </div>
+                    </ng-template>
+
+                </p-fileUpload>
+            </div>
+            <div class="mb-3 col-12">
+                <label for="availabilities" class="w-100">Mission Availability</label>
+                <p-dropdown [options]="availabilities" [id]="'availabilities'" optionLabel="name" optionValue="name" formControlName="availability"
+                    placeholder="Select an Availability" [styleClass]="'w-100'" />
+            </div>
+        </div>
+
+        <p-button [severity]="'secondary'" [outlined]="true" [styleClass]="'rounded-pill me-2'" label="cancel"
+            (onClick)="visible = false" />
+        <p-button [type]="'submit'" [severity]="'warning'" [outlined]="true" [styleClass]="'rounded-pill'" label="Submit" />
+    </form>
+
+</p-dialog>

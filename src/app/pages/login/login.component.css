@@ -41,3 +41,6 @@
         max-height: 100vh !important;
         width: 75vw;
     }
+    .w-75-fix{
+      width: 75%;
+    }

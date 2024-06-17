@@ -3,22 +3,24 @@
 <div class="w-100 d-flex justify-content-center">
     <div class="w-75">
         <div class="w-100 d-flex">
+            <div style="width: 30vw; padding: 10px">
 
-            <p-galleria [value]="missiondetails?.media" [showItemNavigators]="true" [circular]="true"
+                <p-galleria [value]="missiondetails?.media" [showItemNavigators]="true" [circular]="true"
                 [responsiveOptions]="responsiveOptions" [circular]="true" [numVisible]="5"
                 [containerStyle]="{ 'max-width': '30vw', 'padding': '10px'}" [showIndicatorsOnItem]="true"
                 [showThumbnailNavigators]="false">
                 <ng-template pTemplate="item" let-item>
                     <img src="data:image/png;base64,{{item}}" style="height: 40vh;"
-                        class="rounded w-100 border border-secondary" />
+                    class="rounded w-100 border border-secondary" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                     <div class="grid grid-nogutter justify-content-center">
                         <img class="border border-dark rounded" src="data:image/png;base64,{{item}}"
-                            style="display: block; height: 5rem; width: 5rem;" />
+                        style="display: block; height: 5rem; width: 5rem;" />
                     </div>
                 </ng-template>
             </p-galleria>
+            </div>
 
             <div class="p-3 w-100 d-flex flex-column justify-content-between">
                 <div class="w-100">

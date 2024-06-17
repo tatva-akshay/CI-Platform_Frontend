@@ -1,0 +1,26 @@
+<p-card header="{{story?.title}}" [style]="{height: '100%', width: '100%'}" [routerLink]="['../story', story?.storyId]">
+    <ng-template pTemplate="header" class="">
+        <div class="position-relative w-100">
+            <div style="height: 300px;">
+                <img alt="Card" class="h-100 w-100" src="data:image/png;base64,{{story?.thumbnail}}"  />
+            </div>
+            <div class="position-absolute w-100 text-center" style="bottom: -18px; height: 30px;">
+                <b class="bg-white px-2 py-1 rounded-pill border">{{story?.theme}}</b>
+            </div>
+        </div>
+    </ng-template>
+    <div class="h-100 d-flex flex-column justify-content-between">
+        <div>
+            <p style="height: 2.6rem; overflow: hidden;">
+                {{story?.description}}
+            </p>
+        </div>
+        <div class="w-100 justify-content-between d-flex">
+            <span class="d-flex gap-2 align-items-center">
+                <p-avatar class="ms-4 my-1" image="data:image/png;base64,{{story?.userProfile}}" shape="circle" [size]="'large'" /> 
+                {{story?.userName}}
+            </span>
+            <span class="h-100 d-flex align-items-center">{{story?.createdAt | date}}</span>
+        </div>
+    </div>
+</p-card>

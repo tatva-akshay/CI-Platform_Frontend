@@ -5,3 +5,6 @@
 ::ng-deep .p-submenu-list {
    padding-inline: 1rem;
 }
+::ng-deep .p-fileupload-content{
+    display: none;
+}

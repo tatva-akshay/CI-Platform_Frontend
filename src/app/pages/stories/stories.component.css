@@ -1,0 +1,9 @@
+.share-story{
+    /* background-image: url(../../../assets/1.jpg); */
+    /* background: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5) ), url('../../../assets/1.jpg'); */
+    height: 40vh;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

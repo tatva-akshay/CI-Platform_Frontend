@@ -11,6 +11,10 @@ export class CityService {
   constructor(private _httpClient: HttpClient) { }
 
   get(): Observable<ApiResponse>{
-    return this._httpClient.get<ApiResponse>('https://localhost:7017/cities');
+    return this._httpClient.get<ApiResponse>('https://localhost:7017/auth/cities');
+  }
+
+  getCitiesByCountry(country: string): Observable<ApiResponse>{
+    return this._httpClient.get<ApiResponse>('https://localhost:7017/auth/cities?country='+country);
   }
 }

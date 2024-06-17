@@ -1,1 +1,25 @@
-<p>stories works!</p>
+<app-header />
+
+<div class="w-100 d-flex flex-column align-items-center">
+    <div class="share-story text-white w-75 my-2 d-flex flex-column justify-content-center align-items-center">
+        <p class="w-50 text-center">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, corruptiLorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, corrupti?
+        </p>
+        <p-button outlined="true" label="Share your Story" icon="pi pi-arrow-right" iconPos="right"  [severity]="'contrast'" [styleClass]="'text-white rounded-pill gap-2'"/>
+    </div>
+    <div class="row w-75 my-2 row-cols-1 row-cols-md-2 row-cols-lg-3">
+        @for(story of stories; track story){
+            <div class="col">
+                <app-story-card [story]="story" />
+            </div>
+        }
+        @for(story of stories; track story){
+            <div class="col">
+                <app-story-card [story]="story" />
+            </div>
+            <div class="col">
+                <app-story-card [story]="story" />
+            </div>
+        }
+    </div>
+</div>
