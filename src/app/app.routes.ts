@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { MissionDetailsComponent } from './pages/mission-details/mission-details.component';
+import { StoriesComponent } from './pages/stories/stories.component';
 
 export const routes: Routes = [
     {
@@ -38,8 +39,13 @@ export const routes: Routes = [
         title: "home"
     },
     {
+        path: "stories",
+        component: StoriesComponent,
+        title: "Stories"
+    },
+    {
         path: "mission/:id",
         component: MissionDetailsComponent,
-        title: "Mission"
+        title: "Mission",
     }
 ];

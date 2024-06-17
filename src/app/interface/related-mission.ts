@@ -1,6 +1,6 @@
 export interface RelatedMission {
     missionId : number,
-    status: number,
+    thumbnail: string,
     city : string,
     country : string,
     title: string,
@@ -13,5 +13,7 @@ export interface RelatedMission {
     totalSeats : number,
     seatsLeft : number,
     isFavourite : boolean,
-    theme : string
+    isApplied : boolean,
+    theme : string,
+    goal : string
 }

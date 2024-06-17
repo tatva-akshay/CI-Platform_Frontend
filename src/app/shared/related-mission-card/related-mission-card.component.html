@@ -8,14 +8,14 @@
             <p class="position-absolute start-0 top-0 m-2 ms-0 px-2 py-2 rounded-pill text-light bg-warning applied">
                 Closed
                 }
-                @else if(mission?.missionUserDTO?.isApplied){
+                @else if(mission?.isApplied){
             <p class="position-absolute start-0 top-0 m-2 ms-0 px-2 py-2 rounded-pill text-light bg-success applied">
                 Applied
                 }
             <div class="position-absolute end-0 bottom-0 m-2 py-2">
 
                 <div class="my-2 px-2 py-2 rounded-pill text-light location">
-                    @if(mission?.missionUserDTO?.isFavourite){
+                    @if(mission?.isFavourite){
                     <i class="pi pi-heart-fill mx-1"></i>
                     }
                     @else {
@@ -33,18 +33,17 @@
     </ng-template>
     <div class="h-100 d-flex flex-column justify-content-between">
         <div>
-
             <p style="height: 2.6rem; overflow: hidden;">
                 {{mission?.shortDescription}}
             </p>
             <div class="d-flex w-100 justify-content-between">
                 <b>{{mission?.organisationName}}</b>
                 <small>
-                    <p-rating [ngModel]="mission?.ratings" style="color: goldenrod;" [cancel]="false"
+                    <p-rating [ngModel]="mission?.rating" style="color: goldenrod;" [cancel]="false"
                         [readonly]="true" />
                 </small>
             </div>
-            
+
             <div class="d-flex border my-4 w-100 position-relative justify-content-center">
                 <small
                     class="rounded-pill fs-small d-flex align-items-center bg-white position-absolute text-nowrap border border-time-period px-2"
@@ -94,20 +93,19 @@
                 </div>
                 }
             </div>
-            
         </div>
         <div class="pb-2">
             <hr class="mt-0" />
-            @if(mission?.missionUserDTO?.isApplied || (validate(mission?.seatsLeft, mission?.endDate,
+            @if(mission?.isApplied || (validate(mission?.seatsLeft, mission?.endDate,
             mission?.registrationDeadline))) {
             <div class="text-center">
-                <button class="apply-btn btn rounded-pill border w-auto " [routerLink]="['../mission', mission?.missionId]">View Details <i
+                <button class="apply-btn btn rounded-pill border w-auto " [routerLink]="['../../mission', mission?.missionId]">View Details <i
                         class="pi pi-arrow-right ms-3"></i></button>
             </div>
             }
             @else {
             <div class="text-center">
-                <button class="apply-btn btn rounded-pill border w-auto " [routerLink]="['../mission', mission?.missionId]">Apply <i
+                <button class="apply-btn btn rounded-pill border w-auto " [routerLink]="['../../mission', mission?.missionId]">Apply <i
                         class="pi pi-arrow-right ms-3"></i></button>
             </div>
             }

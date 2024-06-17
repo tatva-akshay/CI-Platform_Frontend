@@ -64,7 +64,7 @@ export class HomeComponent {
   search: string = "";
   sort: string = "";
   page : number = 1;
-  pageSize : number =9;
+  pageSize : number = 9;
   totalMissions : number = 0;
 
   sortBy(event: any){

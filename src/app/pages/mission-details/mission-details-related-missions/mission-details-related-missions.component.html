@@ -1,0 +1,8 @@
+<h3 class="w-100 text-center">Related Missions</h3>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 ">
+    @for(relatedMission of relatedMissions; track relatedMission){
+    <div class="col my-1">
+        <app-related-mission-card [mission]="relatedMission"></app-related-mission-card>
+    </div>
+    }
+</div>

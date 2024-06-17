@@ -4,7 +4,7 @@ export interface MissionDetails {
     missionId : number,
     thumbnail : string,
     title : string,
-    rating : number,
+    ratings : number,
     shortDescription : number,
     startDate : Date,
     endDate : Date,
@@ -25,5 +25,6 @@ export interface MissionDetails {
     recentVolunteers : RecentVolunteer[], 
     volunteerCount : number,
     isFavourite : boolean,
-    goal : string
+    goal : string,
+    isApplied : boolean
 }

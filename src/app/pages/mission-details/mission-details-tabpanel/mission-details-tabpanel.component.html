@@ -1,0 +1,36 @@
+<p-tabView>
+    <p-tabPanel header="Mission">
+        <p style="text-align: justify;">
+            {{description}}
+        </p>
+        <h5>Documents</h5>
+        @for(doc of documents; track doc; let i = $index){
+        <button class="mx-2" pButton (click)="convertBase64ToPdf(i)" [outlined]="true"
+            [severity]="'secondary'">Document {{i + 1 }}</button>
+        }
+    </p-tabPanel>
+    <p-tabPanel header="Organisation">
+        <p>
+            {{organisationDetails}}
+        </p>
+    </p-tabPanel>
+    <p-tabPanel header="Comments" style="width: 100%;">
+        <textarea class="w-100" rows="3"></textarea>
+        <p-button [styleClass]="'mx-1'" label="Post comment" [outlined]="true" [severity]="'warning'"
+            [styleClass]="'rounded-pill'" />
+        <div class="p-2 bg-light w-100 gap-2 d-flex flex-column">
+            @for(comment of comments; track comment){
+            <div class="bg-white gap-2 py-2 d-flex w-100">
+                <p-avatar class="ms-4 my-1" image="data:image/png;base64,{{comment.avatar}}"
+                    shape="circle" />
+                <div>
+                    <b class="w-100">{{comment.userName}}</b>
+                    <br />
+                    <small style="font-size: 10px;">{{comment.createdAt| date}}</small>
+                    <p>{{comment.comment}}</p>
+                </div>
+            </div>
+            }
+        </div>
+    </p-tabPanel>
+</p-tabView>

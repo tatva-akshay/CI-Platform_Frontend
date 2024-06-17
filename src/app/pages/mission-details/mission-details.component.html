@@ -1,4 +1,5 @@
 <app-header />
+
 <div class="w-100 d-flex justify-content-center">
     <div class="w-75">
         <div class="w-100 d-flex">
@@ -8,7 +9,8 @@
                 [containerStyle]="{ 'max-width': '30vw', 'padding': '10px'}" [showIndicatorsOnItem]="true"
                 [showThumbnailNavigators]="false">
                 <ng-template pTemplate="item" let-item>
-                    <img src="data:image/png;base64,{{item}}" style="width: 100%; height: 40vh; display: block;" />
+                    <img src="data:image/png;base64,{{item}}" style="height: 40vh;"
+                        class="rounded w-100 border border-secondary" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                     <div class="grid grid-nogutter justify-content-center">
@@ -23,7 +25,7 @@
                     <h3>{{missiondetails?.title}}</h3>
                     <div class="w-100 d-flex justify-content-between align-items-center">
                         <div class="">
-                            <p-rating [ngModel]="missiondetails?.rating" style="color: goldenrod;" [cancel]="false"
+                            <p-rating [ngModel]="missiondetails?.ratings" style="color: goldenrod;" [cancel]="false"
                                 [readonly]="true" />
                         </div>
                         <div>
@@ -89,119 +91,51 @@
                     <button pButton class="p-button-rounded gap-1 fs-6 rounded-pill" [icon]="'pi pi-user-plus'"
                         [severity]="'secondary'" [outlined]="true" [rounded]="true"
                         label="Recommend to a co-worker"></button>
-                    <button pButton class="p-button-rounded gap-1 fs-6 rounded-pill" [severity]="'warning'"
-                        [outlined]="true" [icon]="'pi pi-arrow-right'" [iconPos]="'right'" [rounded]="true"
-                        label="Apply now"></button>
+                        @if(!missiondetails?.isApplied && !validate(missiondetails?.seatsLeft, missiondetails?.endDate, missiondetails?.registrationDeadline)){
+                            <button pButton class="p-button-rounded gap-1 fs-6 rounded-pill" [severity]="'warning'"
+                            [outlined]="true" [icon]="'pi pi-arrow-right'" [iconPos]="'right'" [rounded]="true"
+                            label="Apply now" (click)="applyMission(missionId)"></button>
+                        }
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
 <div class="w-100 d-flex justify-content-center">
     <div class="w-75 d-flex justify-content-between">
+        
         <div class="w-60">
-            <p-tabView>
-                <p-tabPanel header="Mission">
-                    <p style="text-align: justify;">
-                        {{missiondetails?.description}}
-                    </p>
-                    <h5>Documents</h5>
-                    @for(doc of missiondetails?.documents; track doc; let i = $index){
-                    <button class="mx-2" pButton (click)="convertBase64ToPdf(i)" [outlined]="true"
-                        [severity]="'secondary'">Document {{i + 1 }}</button>
-                    }
-                </p-tabPanel>
-                <p-tabPanel header="Organisation">
-                    <p>
-                        {{missiondetails?.organisationDetails}}
-                    </p>
-                </p-tabPanel>
-                <p-tabPanel header="Comments">
-                    <p>
-                        At vero eos et accusamus et iusto odio dignissimos...
-                    </p>
-                </p-tabPanel>
-            </p-tabView>
+            <app-mission-details-tabpanel 
+                [documents]="missiondetails?.documents"
+                [organisationDetails]="missiondetails?.organisationDetails"
+                [missionId]="missionId"
+                [description]="missiondetails?.description" />
         </div>
+<!--  -->
         <div class="w-25">
             <div class="border p-2">
-                <h5>Information</h5>
-                <hr>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th>Skills</th>
-                            <td>{{ missiondetails?.skills }}</td>
-                        </tr>
-                        <tr>
-                            <th>Days</th>
-                            <td>{{ missiondetails?.availability }}</td>
-                        </tr>
-                        <tr>
-                            <th>Rating</th>
-                            <td>
-                                <p-rating [ngModel]="missiondetails?.rating" style="color: goldenrod;" [cancel]="false"
-                                    [readonly]="true" />
-                                <small class="text-nowrap">
-                                    (by {{missiondetails?.ratingCount}} volunteers)
-                                </small>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <app-mission-details-information 
+                    [skills]="missiondetails?.skills"
+                    [availability]="missiondetails?.availability"
+                    [rating]="missiondetails?.ratings"
+                    [ratingCount]="missiondetails?.ratingCount"
+                />
             </div>
-
             <div class="border p-2 mt-2">
-                <h5>Recent Volunteers</h5>
-                <hr>
-                <div class="row row-cols-3">
-                    @for(volunteer of missiondetails?.recentVolunteers; track volunteer){
-                    <div class="col text-center">
-                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
-                        <div class="">
-                            <small>{{volunteer.userName}}</small>
-                        </div>
-                    </div>
-                    }
-                    @for(volunteer of missiondetails?.recentVolunteers; track volunteer){
-                    <div class="col text-center">
-                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
-                        <div class="">
-                            <small>{{volunteer.userName}}</small>
-                        </div>
-                    </div>
-                    }
-                    @for(volunteer of missiondetails?.recentVolunteers; track volunteer){
-                    <div class="col text-center">
-                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
-                        <div class="">
-                            <small>{{volunteer.userName}}</small>
-                        </div>
-                    </div>
-                    }
-                    @for(volunteer of missiondetails?.recentVolunteers; track volunteer){
-                    <div class="col text-center">
-                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
-                        <div class="">
-                            <small>{{volunteer.userName}}</small>
-                        </div>
-                    </div>
-                    }
-                </div>
-                <div>
-                    <p-paginator [rows]="9" [totalRecords]="missiondetails?.volunteerCount"
-                        [showCurrentPageReport]="true" [showPageLinks]="false" [showJumpToPageDropdown]="false"
-                        [showFirstLastIcon]="false"
-                        currentPageReportTemplate="{first} - {last} of {totalRecords} Recent Volunteers" />
-                </div>
+                <app-mission-details-recent-volunteers 
+                    [missionId]="missionId"    
+                    [volunteerCount]="missiondetails?.volunteerCount"
+                    [recentVolunteers]="missiondetails?.recentVolunteers"
+                    />
             </div>
-            <div class="border"></div>
         </div>
     </div>
 </div>
+
 <div class="w-100 d-flex justify-content-center mt-3">
-    <div class="w-75 d-flex justify-content-center">
-        <h4>Related Missions</h4>
+    <div class="w-75">
+        <app-mission-details-related-missions [missionId]="missionId"/>
     </div>
 </div>

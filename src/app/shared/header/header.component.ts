@@ -8,18 +8,22 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 
 import { UserService } from '../../services/user.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [AvatarModule, ButtonModule, MenubarModule, DropdownModule, HttpClientModule],
+  imports: [AvatarModule, ButtonModule, MenubarModule, DropdownModule, HttpClientModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   providers: [UserService]
 })
 export class HeaderComponent {
 
-  constructor(private _userService : UserService) {}
+  constructor(
+    private _userService : UserService,
+    private router : Router
+  ) {}
   userName?: string;
   
   items: MenuItem[] | undefined;
@@ -35,6 +39,7 @@ export class HeaderComponent {
         this.items = [
             {
                 label: 'Stories',
+                command: () => this.router.navigate(['stories']),
             },
             {
                 label: 'Policy',

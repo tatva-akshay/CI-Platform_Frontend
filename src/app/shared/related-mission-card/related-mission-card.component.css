@@ -1,0 +1,17 @@
+.border-time-period {
+    border-color: lightgray;
+}
+.apply-btn{
+    border-color: rgb(201, 113, 26) !important;
+    color: rgb(201, 113, 26);
+  }
+  .location {
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .fs-small {
+    font-size: 10px;
+  }
+  .applied {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }

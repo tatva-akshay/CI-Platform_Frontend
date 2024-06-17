@@ -1,0 +1,42 @@
+<h5>Recent Volunteers</h5>
+                <hr>
+                <div class="row row-cols-3">
+                    @for(volunteer of recentVolunteers; track volunteer){
+                    <div class="col text-center">
+                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
+                        <div class="">
+                            <small>{{volunteer.userName}}</small>
+                        </div>
+                    </div>
+                    }
+                    @for(volunteer of recentVolunteers; track volunteer){
+                    <div class="col text-center">
+                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
+                        <div class="">
+                            <small>{{volunteer.userName}}</small>
+                        </div>
+                    </div>
+                    }
+                    @for(volunteer of recentVolunteers; track volunteer){
+                    <div class="col text-center">
+                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
+                        <div class="">
+                            <small>{{volunteer.userName}}</small>
+                        </div>
+                    </div>
+                    }
+                    @for(volunteer of recentVolunteers; track volunteer){
+                    <div class="col text-center">
+                        <p-avatar image="data:image/png;base64,{{volunteer.profileImage}}" shape="circle" />
+                        <div class="">
+                            <small>{{volunteer.userName}}</small>
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div>
+                    <p-paginator [rows]="9" [totalRecords]="volunteerCount"
+                        [showCurrentPageReport]="true" [showPageLinks]="false" [showJumpToPageDropdown]="false"
+                        [showFirstLastIcon]="false"
+                        currentPageReportTemplate="{first} - {last} of {totalRecords} Recent Volunteers" />
+                </div>

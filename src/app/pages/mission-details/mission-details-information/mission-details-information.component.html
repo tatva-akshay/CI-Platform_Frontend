@@ -1,0 +1,24 @@
+<h5>Information</h5>
+<hr>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Skills</th>
+            <td>{{ skills }}</td>
+        </tr>
+        <tr>
+            <th>Days</th>
+            <td>{{ availability }}</td>
+        </tr>
+        <tr>
+            <th>Rating</th>
+            <td>
+                <p-rating [ngModel]="rating" style="color: goldenrod;" [cancel]="false"
+                    [readonly]="true" />
+                <small class="text-nowrap">
+                    (by {{ratingCount}} volunteers)
+                </small>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -19,4 +19,9 @@ export class MissionService {
     var userId = window.sessionStorage.getItem("userId") ?? 0;
     return this._httpClient.get<ApiResponse>('https://localhost:7017/missions/related-missions?missionId='+id + '&userId='+userId);
   }
+
+  apply(id:number) : Observable<ApiResponse>{
+    var userId = window.sessionStorage.getItem("userId") ?? 0;
+    return this._httpClient.post<ApiResponse>('https://localhost:7017/missions/apply?missionId='+id + '&userId='+userId, {});
+  }
 }
