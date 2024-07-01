@@ -23,7 +23,7 @@
         <form class="w-100 login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
             <div class="mb-3 d-flex flex-column w-100">
-                <label for="email">Email Addres</label>
+                <label for="email">Email Address</label>
                 <input pInputText id="email" aria-describedby="email-validation" formControlName="email" />
                 <small class="text-danger" id="email-validation"
                     *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
